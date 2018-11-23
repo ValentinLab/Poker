@@ -66,6 +66,7 @@ public class Poker {
 
 		// calcul de la plus forte combinaison
 		combinaisonNb = obtenirMax(combinaisonIdentique, obtenirMax(combinaisonDouble, combinaisonSuite));
+		// TODO vérifier le résultat
 		switch(combinaisonNb) {
 			case 0:
 				combinaison = "Rien";
