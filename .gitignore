@@ -1,0 +1,13 @@
+*.class
+
+/out/
+
+/docs/
+
+/javadoc/
+
+Poker.iml
+
+/src/Clavier.java
+
+/src/Ecran.java
