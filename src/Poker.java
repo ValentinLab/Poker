@@ -33,11 +33,11 @@ public class Poker {
 	public static Gobelet lancerDes(int inf, int sup) {
 		Gobelet gblt = new Gobelet();
 
-		gblt.de1 = tirerHasard(sup, inf);
-		gblt.de2 = tirerHasard(sup, inf);
-		gblt.de3 = tirerHasard(sup, inf);
-		gblt.de4 = tirerHasard(sup, inf);
-		gblt.de5 = tirerHasard(sup, inf);
+		gblt.de1 = tirerHasard(inf, sup);
+		gblt.de2 = tirerHasard(inf, sup);
+		gblt.de3 = tirerHasard(inf, sup);
+		gblt.de4 = tirerHasard(inf, sup);
+		gblt.de5 = tirerHasard(inf, sup);
 
 		return(gblt);
 	}
@@ -162,8 +162,15 @@ public class Poker {
 	 * @return Le numéro correspondant à une combinaison
 	 */
 	public static int calculerDouble(Gobelet gblt) {
-		// TODO compléter la fonction calculerDouble()
 		int combinaison = 0;
+
+		if((gblt.de1 == gblt.de2 && gblt.de3 == gblt.de4 && gblt.de4 == gblt.de5) || (gblt.de4 == gblt.de5 && gblt.de1 == gblt.de2 && gblt.de2 == gblt.de3)) {
+			combinaison = 4; // full
+		} else {
+			if((gblt.de1 == gblt.de2 && gblt.de3 == gblt.de4 && gblt.de2 != gblt.de3) || (gblt.de1 == gblt.de2 && gblt.de4 == gblt.de5 && gblt.de2 != gblt.de4) || (gblt.de2 == gblt.de3 && gblt.de4 == gblt.de5 && gblt.de3 != gblt.de4)) {
+				combinaison = 2; // double paire
+			}
+		}
 
 		return combinaison;
 	}
@@ -188,6 +195,8 @@ public class Poker {
 
 		return combinaison;
 	}
+
+	// TODO Créer méthode de trie pour les suites (pour éviter: 1 2 2 3 4 => 1 2 3 4 9)
 
 	/**
 	 * Trier les dés dans l'ordre croissant
@@ -250,7 +259,7 @@ public class Poker {
 	 * @return Le nombre tiré au hasard
 	 */
 	public static int tirerHasard(int inf, int sup) {
-		return((int)((sup - inf)*Math.random() + inf));
+		return inf + (int)(Math.random() * (sup - inf + 1));
 	}
 
 	/**
