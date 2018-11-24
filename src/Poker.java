@@ -44,6 +44,14 @@ public class Poker {
 
 	/**
 	 * Calculer la combinaison la plus forte réalisée par les dés
+	 * Combinaison 1: Paire
+	 * Combinaison 2: Double paire
+	 * Combinaison 3: Brelan
+	 * Combinaison 4: Full
+	 * Combinaison 5: Carré
+	 * Combinaison 6: Petite suite
+	 * Combinaison 7: Suite
+	 * Combinaison 8: Poker
 	 *
 	 * @param gblt Gobelet contenant les 5 dés
 	 * @return La plus forte combinaison réalisée
@@ -55,10 +63,10 @@ public class Poker {
 		// tri du gobelet
 		Gobelet gbltTri = trierGobelet(gblt);
 
-		// calcul d'une combinaison de type pair / brelan / carré / poker
+		// calcul d'une combinaison de type paire / brelan / carré / poker
 		combinaisonIdentique = calculerIdentique(gbltTri);
 
-		// calcul d'une combinaison de type double pair / full
+		// calcul d'une combinaison de type double paire / full
 		combinaisonDouble = calculerDouble(gbltTri);
 
 		// calcul d'une combinaison de type petite suite / suite
@@ -72,28 +80,28 @@ public class Poker {
 				combinaison = "Rien";
 				break;
 			case 8:
-				combinaison = "Pair";
+				combinaison = "Poker";
 				break;
 			case 7:
-				combinaison = "Double pair";
-				break;
-			case 6:
-				combinaison = "Brelan";
-				break;
-			case 5:
-				combinaison = "Full";
-				break;
-			case 4:
-				combinaison = "Carré";
-				break;
-			case 3:
-				combinaison = "Petite suite";
-				break;
-			case 2:
 				combinaison = "Suite";
 				break;
+			case 6:
+				combinaison = "Petite Suite";
+				break;
+			case 5:
+				combinaison = "Carré";
+				break;
+			case 4:
+				combinaison = "Full";
+				break;
+			case 3:
+				combinaison = "Brelan";
+				break;
+			case 2:
+				combinaison = "Double paire";
+				break;
 			case 1:
-				combinaison = "Poker";
+				combinaison = "Paire";
 				break;
 		}
 
@@ -109,35 +117,36 @@ public class Poker {
 	public static int calculerIdentique(Gobelet gblt) {
 		int combinaison = 0;
 
-		if(gblt.de1 == gblt.de2) { // comparaison avec le premier dé
-			combinaison = 8;
+		// comparaison des dés entre eux
+		if(gblt.de1 == gblt.de2) { // comparaison de dé 1 avec les 4 autres
+			combinaison = 1; // paire
 			if(gblt.de1 == gblt.de3) {
-				combinaison = 6;
+				combinaison = 3; // brelan
 				if(gblt.de1 == gblt.de4) {
-					combinaison = 4;
+					combinaison = 5; // carré
 					if(gblt.de1 == gblt.de5) {
-						combinaison = 1;
+						combinaison = 8; // poker
 					}
 				}
 			}
 		} else {
-			if(gblt.de2 == gblt.de3) { // comparaison avec le deuxième dé
-				combinaison = 8;
+			if(gblt.de2 == gblt.de3) { // comparaison de dé 2 avec les 3 autres
+				combinaison = 1; // paire
 				if(gblt.de2 == gblt.de4) {
-					combinaison = 6;
+					combinaison = 3; // brelan
 					if(gblt.de2 == gblt.de5) {
-						combinaison = 4;
+						combinaison = 5; // carré
 					}
 				}
 			} else {
-				if(gblt.de3 == gblt.de4) { // comparaison avec le troisième dé
-					combinaison = 8;
+				if(gblt.de3 == gblt.de4) { // comparaison du dé 3 avec les 2 autres
+					combinaison = 1; // paire
 					if(gblt.de3 == gblt.de5) {
-						combinaison = 6;
+						combinaison = 3; // brelan
 					}
 				} else {
-					if(gblt.de4 == gblt.de5) { // comparaison avec le troisième dé
-						combinaison = 8;
+					if(gblt.de4 == gblt.de5) { // comparaison du dé 4 avec le 5e
+						combinaison = 1; // paire
 					}
 				}
 			}
@@ -168,13 +177,12 @@ public class Poker {
 	public static int calculerSuite(Gobelet gblt) {
 		int combinaison = 0;
 
+		// traitement
 		if(gblt.de2 == gblt.de1 + 1 && gblt.de3 == gblt.de2 + 1 && gblt.de4 == gblt.de3 + 1 && gblt.de5 == gblt.de4 + 1) {
-			combinaison = 2;
+			combinaison = 7; // suite
 		} else {
 			if((gblt.de2 == gblt.de1 + 1 && gblt.de3 == gblt.de2 + 1 && gblt.de4 == gblt.de3 + 1) || (gblt.de3 == gblt.de2 + 1 && gblt.de4 == gblt.de3 + 1 && gblt.de5 == gblt.de4 + 1)) {
-				combinaison = 3;
-			} else {
-				combinaison = 0;
+				combinaison = 6; // petite suite
 			}
 		}
 
@@ -190,6 +198,7 @@ public class Poker {
 	public static Gobelet trierGobelet(Gobelet gblt) {
 		Gobelet gbltTri = gblt;
 
+		// triage des dés
 		int tmp;
 		while(!(gbltTri.de1 <= gbltTri.de2 && gbltTri.de2 <= gbltTri.de3 && gbltTri.de3 <= gbltTri.de4 && gbltTri.de4 <= gbltTri.de5)) {
 			if(gbltTri.de2 < gbltTri.de1) {
@@ -244,6 +253,13 @@ public class Poker {
 		return((int)((sup - inf)*Math.random() + inf));
 	}
 
+	/**
+	 * Obtenir l'entier maximum (comparaison entre deux entiers)
+	 *
+	 * @param a Premier nombre
+	 * @param b Deuxième nombre
+	 * @return Le plus grand nombre des deux
+	 */
 	public static int obtenirMax(int a, int b) {
 		int resultat;
 
@@ -268,6 +284,7 @@ public class Poker {
 		// lancement des dés et affichage
 		Gobelet gblt = lancerDes(INF, SUP); // nouveau lancer
 		afficherLancer(gblt); // affichage du lancer
+
 
 		// ///////////////////////
 		// DEBUG
