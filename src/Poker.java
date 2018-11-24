@@ -107,7 +107,6 @@ public class Poker {
 	 * @return Le numéro correspondant à une combinaison
 	 */
 	public static int calculerIdentique(Gobelet gblt) {
-		// TODO compléter la fonction calculerIdentique()
 		int combinaison = 0;
 
 		if(gblt.de1 == gblt.de2) { // comparaison avec le premier dé
@@ -118,6 +117,27 @@ public class Poker {
 					combinaison = 4;
 					if(gblt.de1 == gblt.de5) {
 						combinaison = 1;
+					}
+				}
+			}
+		} else {
+			if(gblt.de2 == gblt.de3) { // comparaison avec le deuxième dé
+				combinaison = 8;
+				if(gblt.de2 == gblt.de4) {
+					combinaison = 6;
+					if(gblt.de2 == gblt.de5) {
+						combinaison = 4;
+					}
+				}
+			} else {
+				if(gblt.de3 == gblt.de4) { // comparaison avec le troisième dé
+					combinaison = 8;
+					if(gblt.de3 == gblt.de5) {
+						combinaison = 6;
+					}
+				} else {
+					if(gblt.de4 == gblt.de5) { // comparaison avec le troisième dé
+						combinaison = 8;
 					}
 				}
 			}
@@ -248,7 +268,10 @@ public class Poker {
 		// lancement des dés et affichage
 		Gobelet gblt = lancerDes(INF, SUP); // nouveau lancer
 		afficherLancer(gblt); // affichage du lancer
+
+		// ///////////////////////
 		// DEBUG
+		// ///////////////////////
 		Ecran.sautDeLigne();
 		afficherLancer(trierGobelet(gblt));
 	}

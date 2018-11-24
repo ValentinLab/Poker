@@ -1,13 +1,15 @@
+# Fichiers .class
 *.class
 
-/out/
-
-/docs/
-
-/javadoc/
-
+# Fichiers .iml
 Poker.iml
 
+# Fichiers .java
 /src/Clavier.java
-
 /src/Ecran.java
+
+# Dossiers
+/out/
+/docs/
+/javadoc/
+/.idea/
