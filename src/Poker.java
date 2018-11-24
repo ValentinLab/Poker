@@ -1,5 +1,3 @@
-import sun.nio.cs.ext.GB18030;
-
 /**
  * Mini projet: Jeu de Poker
  *
