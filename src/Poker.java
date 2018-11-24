@@ -62,6 +62,8 @@ public class Poker {
 
 		// tri du gobelet
 		Gobelet gbltTri = trierGobelet(gblt);
+		// tri du gobelet pour la suite
+		Gobelet gbltTriSuite = trierGobeletSuite(gblt);
 
 		// calcul d'une combinaison de type paire / brelan / carré / poker
 		combinaisonIdentique = calculerIdentique(gbltTri);
@@ -70,7 +72,7 @@ public class Poker {
 		combinaisonDouble = calculerDouble(gbltTri);
 
 		// calcul d'une combinaison de type petite suite / suite
-		combinaisonSuite = calculerSuite(gbltTri);
+		combinaisonSuite = calculerSuite(gbltTriSuite);
 
 		// calcul de la plus forte combinaison
 		combinaisonNb = obtenirMax(combinaisonIdentique, obtenirMax(combinaisonDouble, combinaisonSuite));
@@ -196,8 +198,6 @@ public class Poker {
 		return combinaison;
 	}
 
-	// TODO Créer méthode de trie pour les suites (pour éviter: 1 2 2 3 4 => 1 2 3 4 9)
-
 	/**
 	 * Trier les dés dans l'ordre croissant
 	 *
@@ -233,6 +233,59 @@ public class Poker {
 		}
 
 		return gbltTri;
+	}
+
+	/**
+	 * Trier les dés spécialement pour détecter les suites
+	 *
+	 * @param gblt Gobelet contenant les dés
+	 * @return Le gobelet avec les dés triés
+	 */
+	public static Gobelet trierGobeletSuite(Gobelet gblt) {
+		Gobelet gbltTriS = gblt;
+
+		// triage des dés
+		int tmp;
+		while(!(gbltTriS.de1 <= gbltTriS.de2 && gbltTriS.de2 <= gbltTriS.de3 && gbltTriS.de3 <= gbltTriS.de4 && gbltTriS.de4 <= gbltTriS.de5)) {
+			if(gbltTriS.de2 < gbltTriS.de1) {
+				tmp = gbltTriS.de1;
+				gbltTriS.de1 = gbltTriS.de2;
+				gbltTriS.de2 = tmp;
+			} else {
+				if(gbltTriS.de2 == gbltTriS.de1) {
+					gbltTriS.de2 = 9;
+				}
+			}
+			if(gbltTriS.de3 < gbltTriS.de2) {
+				tmp = gbltTriS.de2;
+				gbltTriS.de2 = gbltTriS.de3;
+				gbltTriS.de3 = tmp;
+			} else {
+				if (gbltTriS.de3 == gbltTriS.de2) {
+					gbltTriS.de3 = 9;
+				}
+			}
+			if(gbltTriS.de4 < gbltTriS.de3) {
+				tmp = gbltTriS.de3;
+				gbltTriS.de3 = gbltTriS.de4;
+				gbltTriS.de4 = tmp;
+			} else {
+				if (gbltTriS.de4 == gbltTriS.de3) {
+					gbltTriS.de4 = 9;
+				}
+			}
+			if(gbltTriS.de5 < gblt.de4) {
+				tmp = gbltTriS.de4;
+				gbltTriS.de4 = gbltTriS.de5;
+				gbltTriS.de5 = tmp;
+			} else {
+				if (gbltTriS.de5 == gbltTriS.de4) {
+					gbltTriS.de5 = 9;
+				}
+			}
+		}
+
+		return gbltTriS;
 	}
 
 	/**
