@@ -1,3 +1,5 @@
+import sun.nio.cs.ext.GB18030;
+
 /**
  * Mini projet: Jeu de Poker
  *
@@ -59,11 +61,12 @@ public class Poker {
 	public static String calculerCombinaison(Gobelet gblt) {
 		int combinaisonNb, combinaisonIdentique, combinaisonDouble, combinaisonSuite;
 		String combinaison = "";
+		Gobelet aTrier = clonerGobelet(gblt);
 
 		// tri du gobelet
-		Gobelet gbltTri = trierGobelet(gblt);
+		Gobelet gbltTri = trierGobelet(aTrier);
 		// tri du gobelet pour la suite
-		Gobelet gbltTriSuite = trierGobeletSuite(gblt);
+		Gobelet gbltTriSuite = trierGobeletSuite(gbltTri);
 
 		// calcul d'une combinaison de type paire / brelan / carré / poker
 		combinaisonIdentique = calculerIdentique(gbltTri);
@@ -76,7 +79,6 @@ public class Poker {
 
 		// calcul de la plus forte combinaison
 		combinaisonNb = obtenirMax(combinaisonIdentique, obtenirMax(combinaisonDouble, combinaisonSuite));
-		// TODO vérifier le résultat
 		switch(combinaisonNb) {
 			case 0:
 				combinaison = "Rien";
@@ -242,48 +244,25 @@ public class Poker {
 	 * @return Le gobelet avec les dés triés
 	 */
 	public static Gobelet trierGobeletSuite(Gobelet gblt) {
-		Gobelet gbltTriS = gblt;
+		Gobelet gbltTriS = clonerGobelet(gblt);
 
 		// triage des dés
-		int tmp;
-		while(!(gbltTriS.de1 <= gbltTriS.de2 && gbltTriS.de2 <= gbltTriS.de3 && gbltTriS.de3 <= gbltTriS.de4 && gbltTriS.de4 <= gbltTriS.de5)) {
-			if(gbltTriS.de2 < gbltTriS.de1) {
-				tmp = gbltTriS.de1;
-				gbltTriS.de1 = gbltTriS.de2;
-				gbltTriS.de2 = tmp;
+		if(gbltTriS.de1 == gbltTriS.de2) {
+			gbltTriS.de2 = 9;
+		} else {
+			if(gbltTriS.de2 == gbltTriS.de3) {
+				gbltTriS.de3 = 9;
 			} else {
-				if(gbltTriS.de2 == gbltTriS.de1) {
-					gbltTriS.de2 = 9;
-				}
-			}
-			if(gbltTriS.de3 < gbltTriS.de2) {
-				tmp = gbltTriS.de2;
-				gbltTriS.de2 = gbltTriS.de3;
-				gbltTriS.de3 = tmp;
-			} else {
-				if (gbltTriS.de3 == gbltTriS.de2) {
-					gbltTriS.de3 = 9;
-				}
-			}
-			if(gbltTriS.de4 < gbltTriS.de3) {
-				tmp = gbltTriS.de3;
-				gbltTriS.de3 = gbltTriS.de4;
-				gbltTriS.de4 = tmp;
-			} else {
-				if (gbltTriS.de4 == gbltTriS.de3) {
+				if(gbltTriS.de3 == gbltTriS.de4) {
 					gbltTriS.de4 = 9;
-				}
-			}
-			if(gbltTriS.de5 < gblt.de4) {
-				tmp = gbltTriS.de4;
-				gbltTriS.de4 = gbltTriS.de5;
-				gbltTriS.de5 = tmp;
-			} else {
-				if (gbltTriS.de5 == gbltTriS.de4) {
-					gbltTriS.de5 = 9;
+				} else {
+					if(gbltTriS.de4 == gbltTriS.de5) {
+						gbltTriS.de5 = 9;
+					}
 				}
 			}
 		}
+		gbltTriS = trierGobelet(gbltTriS);
 
 		return gbltTriS;
 	}
@@ -298,6 +277,24 @@ public class Poker {
 		Ecran.afficher("(", gblt.de1, " ", gblt.de2, " ", gblt.de3, " ", gblt.de4, " ", gblt.de5, ")");
 		// affichage de la combinaison
 		Ecran.afficher(" - ", calculerCombinaison(gblt));
+	}
+
+	/**
+	 * Cloner un gobelet
+	 *
+	 * @param gblt Gobelet contenant les dés
+	 * @return Le nouveau gobelet trié
+	 */
+	public static Gobelet clonerGobelet(Gobelet gblt) {
+		Gobelet nvGblt = new Gobelet();
+
+		nvGblt.de1 = gblt.de1;
+		nvGblt.de2 = gblt.de2;
+		nvGblt.de3 = gblt.de3;
+		nvGblt.de4 = gblt.de4;
+		nvGblt.de5 = gblt.de5;
+
+		return nvGblt;
 	}
 
 	/******************************
