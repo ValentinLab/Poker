@@ -272,7 +272,7 @@ public class Poker {
 	 */
 	public static void afficherLancer(Joueur joueur) {
 		// affichage de la valeur des dés
-		Ecran.afficher(joueur.nom, " (", joueur.gblt.de1, " ", joueur.gblt.de2, " ", joueur.gblt.de3, " ", joueur.gblt.de4, " ", joueur.gblt.de5, ")");
+		Ecran.afficher(joueur.nom, " - ( ", joueur.gblt.de1, " ", joueur.gblt.de2, " ", joueur.gblt.de3, " ", joueur.gblt.de4, " ", joueur.gblt.de5, " )");
 		// affichage de la combinaison
 		Ecran.afficher(" - ", calculerCombinaison(joueur.gblt));
 	}
@@ -306,7 +306,7 @@ public class Poker {
 	}
 
 	public static void choixRelances (Relance relance, Gobelet gobelet, int SUP, int INF) {
-		Ecran.afficher("Voulez-vous relancer des dés ? Appuyez sur 'o' pour oui et 'n' pour non ");
+		Ecran.afficher("Voulez-vous relancer des dés ? ('o'/'n') ");
 		relance.reponse = Clavier.saisirChar();
 
 		while (relance.reponse != 'o' && relance.reponse != 'n'){
@@ -420,10 +420,10 @@ public class Poker {
 	public static void demandeNom (Joueur J1, Joueur J2) {
 		Ecran.afficher("Quel est le nom du joueur 1 ? ");
 		J1.nom = Clavier.saisirString();
-		Ecran.afficher("\nQuel est le nom du deuxième joueur ? ");
+		Ecran.afficher("Quel est le nom du joueur 2 ? ");
 		J2.nom = Clavier.saisirString();
 		Ecran.sautDeLigne();
-		Ecran.afficher("Bonjour " + J1.nom + " et " + J2.nom + " et bienvenue au Poker d'As! ");
+		Ecran.afficherln("Bonjour " + J1.nom + " et " + J2.nom + " et bienvenue au Poker d'As! ");
 		Ecran.sautDeLigne();
 	}
 
@@ -478,6 +478,12 @@ public class Poker {
 		demandeNom(joueur1, joueur2);
 		tourJeu = tirerHasard(1, 2);
 
+		// jeu
+		if(tourJeu == 1) {
+			Ecran.afficherln("Le joueur ", joueur1.nom, " joue en premier.");
+		} else {
+			Ecran.afficherln("Le joueur ", joueur2.nom, " joue en premier.");
+		}
 		do {
 			// tours de jeu
 			if(tourJeu == 1) {
@@ -486,9 +492,10 @@ public class Poker {
 					joueur1.gblt = lancerDes(INF, SUP); // nouveau lancer
 					afficherLancer(joueur1); // affichage du lancer
 					Ecran.sautDeLigne();
-
-					// relance
 				} else {
+					// affichage du joueur
+					Ecran.afficherln("Au tour de ", joueur1.nom, "...");
+					// relance
 					choixRelances(relance, joueur1.gblt, SUP, INF);
 					afficherLancer(joueur1);
 					Ecran.sautDeLigne();
@@ -500,6 +507,9 @@ public class Poker {
 					afficherLancer(joueur2); // affichage du lancer
 					Ecran.sautDeLigne();
 				} else {
+					// affichage du joueur
+					Ecran.afficherln("Au tour de ", joueur2.nom, "...");
+					// relance
 					choixRelances(relance, joueur2.gblt, SUP, INF);
 					afficherLancer(joueur2);
 					Ecran.sautDeLigne();
