@@ -303,16 +303,6 @@ public class Poker {
 		char reponse;
 		int nbDes;
 		int numDes;
-		String DesRelances = "";
-	}
-
-	public static Gobelet lancerDes (Gobelet gobelet, int sup, int inf){
-		gobelet.de1 = tirerHasard(inf, sup);
-		gobelet.de2 = tirerHasard(inf, sup);
-		gobelet.de3 = tirerHasard(inf, sup);
-		gobelet.de4 = tirerHasard(inf, sup);
-		gobelet.de5 = tirerHasard(inf, sup);
-		return(gobelet);
 	}
 
 	public static void choixRelances (Relance relance, Gobelet gobelet, int SUP, int INF) {
@@ -418,8 +408,18 @@ public class Poker {
 
 	public static class Joueur {
 		String nom;
-		Gobelet gblt = new Gobelet();
+		Gobelet gblt;
 		int score;
+	}
+
+	public static void demandeNom (Joueur J1, Joueur J2) {
+		Ecran.afficher("Quel est le nom du joueur 1 ? ");
+		J1.nom = Clavier.saisirString();
+		Ecran.afficher("\nQuel est le nom du deuxième joueur ? ");
+		J2.nom = Clavier.saisirString();
+		Ecran.sautDeLigne();
+		Ecran.afficher("Bonjour " + J1.nom + " et " + J2.nom + " et bienvenue au Poker d'As! ");
+		Ecran.sautDeLigne();
 	}
 
 	/******************************
@@ -467,15 +467,33 @@ public class Poker {
 		Relance relance = new Relance();
 		final int INF = 1;
 		final int SUP = 6;
+		int tourJeu;
 
-		// lancement des dés et affichage
-		joueur1.gblt = lancerDes(INF, SUP); // nouveau lancer
-		afficherLancer(joueur1); // affichage du lancer
-		Ecran.sautDeLigne();
+		// initialisation des variables
+		demandeNom(joueur1, joueur2);
+		tourJeu = tirerHasard(1, 2);
 
-		// relance des dés
-		choixRelances(relance, joueur1.gblt, SUP, INF); // relancer les dés
-		afficherLancer(joueur1); // affichage du lancer
+		do {
+			// tours de jeu
+			if(tourJeu == 1) {
+				// lancement des dés et affichage
+				joueur1.gblt = lancerDes(INF, SUP); // nouveau lancer
+				afficherLancer(joueur1); // affichage du lancer
+				Ecran.sautDeLigne();
+			} else {
+				// lancement des dés et affichage
+				joueur2.gblt = lancerDes(INF, SUP); // nouveau lancer
+				afficherLancer(joueur2); // affichage du lancer
+				Ecran.sautDeLigne();
+			}
+
+			// changement de joueur
+			if(tourJeu == 1) {
+				tourJeu = 2;
+			} else {
+				tourJeu = 1;
+			}
+		} while(1 == 1);
 	}
 
 }
