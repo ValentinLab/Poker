@@ -296,7 +296,7 @@ public class Poker {
 	}
 
 	/******************************
-	 *     Type agrégé Gobelet    *
+	 *     Type agrégé Relance    *
 	 ******************************/
 
 	public static class Relance {
@@ -412,6 +412,15 @@ public class Poker {
 
 	}
 
+	/******************************
+	 *     Type agrégé Joueur     *
+	 ******************************/
+
+	public static class Joueur {
+		String nom;
+		Gobelet gblt;
+		int score;
+	}
 
 	/******************************
 	 *     Fonctions & Actions    *
@@ -456,6 +465,8 @@ public class Poker {
 		final int INF = 1;
 		final int SUP = 6;
 		Relance relance = new Relance();
+		Gobelet gbltJ1 = new Gobelet();
+		Gobelet gbltJ2 = new Gobelet();
 
 		// lancement des dés et affichage
 		Gobelet gblt = lancerDes(INF, SUP); // nouveau lancer
