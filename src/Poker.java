@@ -418,7 +418,7 @@ public class Poker {
 
 	public static class Joueur {
 		String nom;
-		Gobelet gblt;
+		Gobelet gblt = new Gobelet();
 		int score;
 	}
 
@@ -469,12 +469,12 @@ public class Poker {
 		final int SUP = 6;
 
 		// lancement des dés et affichage
-		Gobelet gblt = lancerDes(INF, SUP); // nouveau lancer
+		joueur1.gblt = lancerDes(INF, SUP); // nouveau lancer
 		afficherLancer(joueur1); // affichage du lancer
 		Ecran.sautDeLigne();
 
 		// relance des dés
-		choixRelances(relance, gblt, SUP, INF); // relancer les dés
+		choixRelances(relance, joueur1.gblt, SUP, INF); // relancer les dés
 		afficherLancer(joueur1); // affichage du lancer
 	}
 
