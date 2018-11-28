@@ -268,13 +268,13 @@ public class Poker {
 	/**
 	 * Afficher le lancer réalisé et la plus forte combinaison
 	 *
-	 * @param gblt Gobelet contenant les dés
+	 * @param joueur Joueur qui réalise le lancer
 	 */
-	public static void afficherLancer(Gobelet gblt) {
+	public static void afficherLancer(Joueur joueur) {
 		// affichage de la valeur des dés
-		Ecran.afficher("(", gblt.de1, " ", gblt.de2, " ", gblt.de3, " ", gblt.de4, " ", gblt.de5, ")");
+		Ecran.afficher(joueur.nom, " (", joueur.gblt.de1, " ", joueur.gblt.de2, " ", joueur.gblt.de3, " ", joueur.gblt.de4, " ", joueur.gblt.de5, ")");
 		// affichage de la combinaison
-		Ecran.afficher(" - ", calculerCombinaison(gblt));
+		Ecran.afficher(" - ", calculerCombinaison(joueur.gblt));
 	}
 
 	/**
@@ -462,18 +462,20 @@ public class Poker {
 
 	public static void main(String ars[]) {
 		// déclaration des données
+		Joueur joueur1 = new Joueur();
+		Joueur joueur2 = new Joueur();
+		Relance relance = new Relance();
 		final int INF = 1;
 		final int SUP = 6;
-		Relance relance = new Relance();
-		Gobelet gbltJ1 = new Gobelet();
-		Gobelet gbltJ2 = new Gobelet();
 
 		// lancement des dés et affichage
 		Gobelet gblt = lancerDes(INF, SUP); // nouveau lancer
-		afficherLancer(gblt); // affichage du lancer
+		afficherLancer(joueur1); // affichage du lancer
 		Ecran.sautDeLigne();
+
+		// relance des dés
 		choixRelances(relance, gblt, SUP, INF); // relancer les dés
-		afficherLancer(gblt); // affichage du lancer
+		afficherLancer(joueur1); // affichage du lancer
 	}
 
 }
