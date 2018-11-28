@@ -305,6 +305,14 @@ public class Poker {
 		int numDes;
 	}
 
+	/**
+	 * Choisir les dés à relancer
+	 *
+	 * @param relance Type agrégé modélisant la relance de dés
+	 * @param gobelet Gobelet contenant les dés à relancer
+	 * @param SUP Borne supérieur pour les valeurs des dés
+	 * @param INF Borne inférieure pour les valeurs des dés
+	 */
 	public static void choixRelances (Relance relance, Gobelet gobelet, int SUP, int INF) {
 		Ecran.afficher("Voulez-vous relancer des dés ? ('o'/'n') ");
 		relance.reponse = Clavier.saisirChar();
@@ -359,6 +367,11 @@ public class Poker {
 
 	}
 
+	/**
+	 * Vérification de la saisie pour la relance
+	 *
+	 * @param relance Type agrégé modélisant la relance de dés
+	 */
 	public static void saisieNumDesCorrect (Relance relance) {
 		relance.numDes = Clavier.saisirInt();
 		while (relance.numDes < 1 || relance.numDes > 5){
@@ -368,6 +381,15 @@ public class Poker {
 		}
 	}
 
+	/**
+	 * Relancer plusieurs dés
+	 *
+	 * @param relance Type agrégé modélisant la relance de dés
+	 * @param gobelet Gobelet contenant les dés à relancer
+	 * @param SUP Borne supérieur pour les valeurs des dés
+	 * @param INF Borne inférieure pour les valeurs des dés
+	 * @param compteur Nombre de dés à relancer
+	 */
 	public static void relanceMultiple (Relance relance, Gobelet gobelet, int SUP, int INF, int compteur) {
 		Ecran.afficher("\nEntrez le numéro du premier dé que vous voulez relancez (de 1 à 5, de gauche à droite): ");
 		saisieNumDesCorrect (relance);
@@ -380,6 +402,14 @@ public class Poker {
 
 	}
 
+	/**
+	 * Donner une nouvelle valeur aux dés
+	 *
+	 * @param relance Type agrégé modélisant la relance de dés
+	 * @param gobelet Gobelet contenant les dés à relancer
+	 * @param SUP Borne supérieur pour les valeurs des dés
+	 * @param INF Borne inférieure pour les valeurs des dés
+	 */
 	public static void actionRelance (Relance relance, Gobelet gobelet, int SUP, int INF) {
 		Ecran.afficher("Vous allez lancer le dé "+ relance.numDes+" ");
 		switch(relance.numDes) {
@@ -417,6 +447,12 @@ public class Poker {
 		int score;
 	}
 
+	/**
+	 * Demander le noms des joueurs
+	 *
+	 * @param J1 Premier joueur
+	 * @param J2 Second joueur
+	 */
 	public static void demandeNom (Joueur J1, Joueur J2) {
 		Ecran.afficher("Quel est le nom du joueur 1 ? ");
 		J1.nom = Clavier.saisirString();
