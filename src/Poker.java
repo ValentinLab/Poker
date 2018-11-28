@@ -296,6 +296,124 @@ public class Poker {
 	}
 
 	/******************************
+	 *     Type agrégé Gobelet    *
+	 ******************************/
+
+	public static class Relance {
+		char reponse;
+		int nbDes;
+		int numDes;
+		String DesRelances = "";
+	}
+
+	public static Gobelet lancerDes (Gobelet gobelet, int sup, int inf){
+		gobelet.de1 = tirerHasard(inf, sup);
+		gobelet.de2 = tirerHasard(inf, sup);
+		gobelet.de3 = tirerHasard(inf, sup);
+		gobelet.de4 = tirerHasard(inf, sup);
+		gobelet.de5 = tirerHasard(inf, sup);
+		return(gobelet);
+	}
+
+	public static void choixRelances (Relance relance, Gobelet gobelet, int SUP, int INF) {
+		Ecran.afficher("Voulez-vous relancer des dés ? Appuyez sur 'o' pour oui et 'n' pour non ");
+		relance.reponse = Clavier.saisirChar();
+		while (relance.reponse != 'o' && relance.reponse != 'n'){
+			Ecran.afficher("Vous n'avez pas saisi 'oui' ou 'non', veuillez recommencer la saisie ");
+			relance.reponse = Clavier.saisirChar();
+		}
+		if (relance.reponse == 'o'){
+			Ecran.afficher("\nCombien de dés voulez-vous relancer ? ");
+			relance.nbDes = Clavier.saisirInt();
+			while (relance.nbDes < 1 || relance.nbDes > 5){
+				Ecran.afficher("\nLe nombre de dés que vous avez saisi n'est pas valable car non compris entre 1 et 5. Réessayez la saisie: ");
+				relance.nbDes = Clavier.saisirInt();
+			}
+			Ecran.afficher("\nQuel(s) dé(s) voulez-vous relancer ? ");
+			switch (relance.nbDes) {
+				case 1 : {
+					int compteur = 1;
+					relanceMultiple (relance, gobelet, SUP, INF, compteur);
+					break;
+				}
+				case 2 : {
+					int compteur = 2;
+					relanceMultiple (relance, gobelet, SUP, INF, compteur);
+					break;
+				}
+				case 3 : {
+					int compteur = 3;
+					relanceMultiple (relance, gobelet, SUP, INF, compteur);
+					break;
+				}
+				case 4 : {
+					int compteur = 4;
+					relanceMultiple (relance, gobelet, SUP, INF, compteur);
+					break;
+				}
+				case 5 : {
+					int compteur = 5;
+					relanceMultiple (relance, gobelet, SUP, INF, compteur);
+					break;
+				}
+			}
+		} else if (relance.reponse == 'n'){
+			Ecran.afficher("C'est au tour de **l'autre** de jouer ");
+			Ecran.sautDeLigne();
+		}
+
+	}
+
+	public static void saisieNumDesCorrect (Relance relance) {
+		relance.numDes = Clavier.saisirInt();
+		while (relance.numDes < 1 || relance.numDes > 5){
+
+			Ecran.afficher("\nLe dés que vous avez saisi n'est pas valable car son numéro doit être compris entre 1 et 5. Réessayez la saisie: ");
+			relance.numDes = Clavier.saisirInt();
+		}
+	}
+
+	public static void relanceMultiple (Relance relance, Gobelet gobelet, int SUP, int INF, int compteur) {
+		Ecran.afficher("\nEntrez le numéro du premier dé que vous voulez relancez (de 1 à 5, de gauche à droite): ");
+		saisieNumDesCorrect (relance);
+		actionRelance (relance, gobelet, SUP, INF);
+		for (int i=1; i<compteur; i++){
+			Ecran.afficher("\nEntrez le numéro du prochain dé : ");
+			saisieNumDesCorrect (relance);
+			actionRelance (relance, gobelet, SUP, INF);
+		}
+
+	}
+
+	public static void actionRelance (Relance relance, Gobelet gobelet, int SUP, int INF) {
+		Ecran.afficher("Vous allez lancer le dé "+ relance.numDes+" ");
+		switch(relance.numDes) {
+			case 1 : {
+				gobelet.de1 = tirerHasard(INF, SUP);
+				break;
+			}
+			case 2 : {
+				gobelet.de2 = tirerHasard(INF, SUP);
+				break;
+			}
+			case 3 : {
+				gobelet.de3 = tirerHasard(INF, SUP);
+				break;
+			}
+			case 4 : {
+				gobelet.de4 = tirerHasard(INF, SUP);
+				break;
+			}
+			case 5 : {
+				gobelet.de5 = tirerHasard(INF, SUP);
+				break;
+			}
+		}
+
+	}
+
+
+	/******************************
 	 *     Fonctions & Actions    *
 	 ******************************/
 
@@ -337,9 +455,13 @@ public class Poker {
 		// déclaration des données
 		final int INF = 1;
 		final int SUP = 6;
+		Relance relance = new Relance();
 
 		// lancement des dés et affichage
 		Gobelet gblt = lancerDes(INF, SUP); // nouveau lancer
+		afficherLancer(gblt); // affichage du lancer
+		Ecran.sautDeLigne();
+		choixRelances(relance, gblt, SUP, INF); // relancer les dés
 		afficherLancer(gblt); // affichage du lancer
 	}
 
