@@ -341,13 +341,6 @@ public class Poker {
 		// lancement des dés et affichage
 		Gobelet gblt = lancerDes(INF, SUP); // nouveau lancer
 		afficherLancer(gblt); // affichage du lancer
-
-
-		// ///////////////////////
-		// DEBUG
-		// ///////////////////////
-		Ecran.sautDeLigne();
-		afficherLancer(trierGobelet(gblt));
 	}
 
 }
