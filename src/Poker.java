@@ -308,18 +308,23 @@ public class Poker {
 	public static void choixRelances (Relance relance, Gobelet gobelet, int SUP, int INF) {
 		Ecran.afficher("Voulez-vous relancer des dés ? Appuyez sur 'o' pour oui et 'n' pour non ");
 		relance.reponse = Clavier.saisirChar();
+
 		while (relance.reponse != 'o' && relance.reponse != 'n'){
 			Ecran.afficher("Vous n'avez pas saisi 'oui' ou 'non', veuillez recommencer la saisie ");
 			relance.reponse = Clavier.saisirChar();
 		}
-		if (relance.reponse == 'o'){
+
+		if(relance.reponse == 'o'){
 			Ecran.afficher("\nCombien de dés voulez-vous relancer ? ");
 			relance.nbDes = Clavier.saisirInt();
+
 			while (relance.nbDes < 1 || relance.nbDes > 5){
 				Ecran.afficher("\nLe nombre de dés que vous avez saisi n'est pas valable car non compris entre 1 et 5. Réessayez la saisie: ");
 				relance.nbDes = Clavier.saisirInt();
 			}
+
 			Ecran.afficher("\nQuel(s) dé(s) voulez-vous relancer ? ");
+
 			switch (relance.nbDes) {
 				case 1 : {
 					int compteur = 1;
@@ -347,8 +352,8 @@ public class Poker {
 					break;
 				}
 			}
-		} else if (relance.reponse == 'n'){
-			Ecran.afficher("C'est au tour de **l'autre** de jouer ");
+		} else {
+			Ecran.afficher("C'est au tour de l'autre de jouer ");
 			Ecran.sautDeLigne();
 		}
 
@@ -467,7 +472,7 @@ public class Poker {
 		Relance relance = new Relance();
 		final int INF = 1;
 		final int SUP = 6;
-		int tourJeu;
+		int tourJeu, compteur = 1;
 
 		// initialisation des variables
 		demandeNom(joueur1, joueur2);
@@ -476,15 +481,29 @@ public class Poker {
 		do {
 			// tours de jeu
 			if(tourJeu == 1) {
-				// lancement des dés et affichage
-				joueur1.gblt = lancerDes(INF, SUP); // nouveau lancer
-				afficherLancer(joueur1); // affichage du lancer
-				Ecran.sautDeLigne();
+				if(compteur == 1 || compteur == 2) {
+					// lancement des dés et affichage
+					joueur1.gblt = lancerDes(INF, SUP); // nouveau lancer
+					afficherLancer(joueur1); // affichage du lancer
+					Ecran.sautDeLigne();
+
+					// relance
+				} else {
+					choixRelances(relance, joueur1.gblt, SUP, INF);
+					afficherLancer(joueur1);
+					Ecran.sautDeLigne();
+				}
 			} else {
-				// lancement des dés et affichage
-				joueur2.gblt = lancerDes(INF, SUP); // nouveau lancer
-				afficherLancer(joueur2); // affichage du lancer
-				Ecran.sautDeLigne();
+				if(compteur == 1 || compteur == 2) {
+					// lancement des dés et affichage
+					joueur2.gblt = lancerDes(INF, SUP); // nouveau lancer
+					afficherLancer(joueur2); // affichage du lancer
+					Ecran.sautDeLigne();
+				} else {
+					choixRelances(relance, joueur2.gblt, SUP, INF);
+					afficherLancer(joueur2);
+					Ecran.sautDeLigne();
+				}
 			}
 
 			// changement de joueur
@@ -493,6 +512,9 @@ public class Poker {
 			} else {
 				tourJeu = 1;
 			}
+
+			// compteur de tours
+			compteur++;
 		} while(1 == 1);
 	}
 
