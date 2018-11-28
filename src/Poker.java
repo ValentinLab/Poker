@@ -54,9 +54,9 @@ public class Poker {
 	 * Combinaison 8: Poker
 	 *
 	 * @param gblt Gobelet contenant les 5 dés
-	 * @return La plus forte combinaison réalisée
+	 * @return La plus forte combinaison réalisée (l'entier corréspondant)
 	 */
-	public static String calculerCombinaison(Gobelet gblt) {
+	public static int calculerCombinaison(Gobelet gblt) {
 		int combinaisonNb, combinaisonIdentique, combinaisonDouble, combinaisonSuite;
 		String combinaison = "";
 		Gobelet aTrier = clonerGobelet(gblt);
@@ -77,6 +77,13 @@ public class Poker {
 
 		// calcul de la plus forte combinaison
 		combinaisonNb = obtenirMax(combinaisonIdentique, obtenirMax(combinaisonDouble, combinaisonSuite));
+
+		return combinaisonNb;
+	}
+
+	public static String convertirNom(int combinaisonNb) {
+		String combinaison = "";
+
 		switch(combinaisonNb) {
 			case 0:
 				combinaison = "Rien";
@@ -274,7 +281,7 @@ public class Poker {
 		// affichage de la valeur des dés
 		Ecran.afficher(joueur.nom, " - ( ", joueur.gblt.de1, " ", joueur.gblt.de2, " ", joueur.gblt.de3, " ", joueur.gblt.de4, " ", joueur.gblt.de5, " )");
 		// affichage de la combinaison
-		Ecran.afficher(" - ", calculerCombinaison(joueur.gblt));
+		Ecran.afficher(" - ", convertirNom(calculerCombinaison(joueur.gblt)));
 	}
 
 	/**
@@ -360,9 +367,6 @@ public class Poker {
 					break;
 				}
 			}
-		} else {
-			Ecran.afficher("C'est au tour de l'autre de jouer ");
-			Ecran.sautDeLigne();
 		}
 
 	}
@@ -443,8 +447,8 @@ public class Poker {
 
 	public static class Joueur {
 		String nom;
-		Gobelet gblt;
-		int score;
+		Gobelet gblt = new Gobelet();
+		int score = 0;
 	}
 
 	/**
@@ -496,6 +500,24 @@ public class Poker {
 
 		return resultat;
 	}
+
+	public static void calculerScore(Joueur joueur1, Joueur joueur2) {
+		int combinaisonJ1 = calculerCombinaison(joueur1.gblt);
+		int combinaisonJ2 = calculerCombinaison(joueur2.gblt);
+		if(combinaisonJ1 > combinaisonJ2) {
+			joueur1.score++;
+		} else {
+			if(combinaisonJ1 < combinaisonJ2) {
+				joueur2.score++;
+			}
+		}
+
+	}
+
+	public static void afficherScore(Joueur joueur1, Joueur joueur2) {
+		Ecran.afficherln("Score:\n", joueur1.nom, " : ", joueur1.score, "\n", joueur2.nom, " : ", joueur2.score);
+	}
+
 
 	/******************************
 	 *            Main            *
@@ -551,6 +573,10 @@ public class Poker {
 					Ecran.sautDeLigne();
 				}
 			}
+
+			// calcul et affichage du score
+			calculerScore(joueur1, joueur2);
+			afficherScore(joueur1, joueur2);
 
 			// changement de joueur
 			if(tourJeu == 1) {
