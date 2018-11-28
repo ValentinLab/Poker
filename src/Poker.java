@@ -501,6 +501,12 @@ public class Poker {
 		return resultat;
 	}
 
+	/**
+	 * Calculer le score des joueurs en fonction des coups
+	 *
+	 * @param joueur1 Premier joueur
+	 * @param joueur2 Second joueur
+	 */
 	public static void calculerScore(Joueur joueur1, Joueur joueur2) {
 		int combinaisonJ1 = calculerCombinaison(joueur1.gblt);
 		int combinaisonJ2 = calculerCombinaison(joueur2.gblt);
@@ -514,10 +520,92 @@ public class Poker {
 
 	}
 
+	/**
+	 * Afficher le score des joueurs
+	 *
+	 * @param joueur1 Premier joueur
+	 * @param joueur2 Second joueur
+	 */
 	public static void afficherScore(Joueur joueur1, Joueur joueur2) {
 		Ecran.afficherln("Score:\n", joueur1.nom, " : ", joueur1.score, "\n", joueur2.nom, " : ", joueur2.score);
 	}
 
+	/**
+	 * Réalisation des différents tours de jeu
+	 *
+	 * @param j1 Premier joueur
+	 * @param j2 Second joueur
+	 * @param inf Borne inférieure
+	 * @param sup Borne supérieure
+	 * @param relance Type agrégé symbolisant la relance des dés
+	 */
+	public static void tourJeu(Joueur j1, Joueur j2, int inf, int sup, Relance relance) {
+		// déclaration des variables
+		int compteur = 1;
+		int tourJeu = tirerPremierJoueur(j1, j2);
+
+		// boucle de jeu
+		do {
+			if(tourJeu == 1) {
+				if(compteur == 1 || compteur == 2) {
+					// lancement des dés et affichage
+					j1.gblt = lancerDes(inf, sup); // nouveau lancer
+					afficherLancer(j1); // affichage du lancer
+					Ecran.sautDeLigne();
+				} else {
+					// affichage du joueur
+					Ecran.afficherln("\nAu tour de ", j1.nom, "...");
+					// relance
+					choixRelances(relance, j1.gblt, sup, inf);
+					afficherLancer(j1);
+					Ecran.sautDeLigne();
+				}
+			} else {
+				if(compteur == 1 || compteur == 2) {
+					// lancement des dés et affichage
+					j2.gblt = lancerDes(inf, sup); // nouveau lancer
+					afficherLancer(j2); // affichage du lancer
+					Ecran.sautDeLigne();
+				} else {
+					// affichage du joueur
+					Ecran.afficherln("\nAu tour de ", j2.nom, "...");
+					// relance
+					choixRelances(relance, j2.gblt, sup, inf);
+					afficherLancer(j2);
+					Ecran.sautDeLigne();
+				}
+			}
+
+			// changement de joueur
+			if(tourJeu == 1) {
+				tourJeu = 2;
+			} else {
+				tourJeu = 1;
+			}
+
+			// compteur de tours
+			compteur++;
+		} while(1 == 1);
+	}
+
+	/**
+	 * Tirer au sort le joueur qui joue en premier
+	 *
+	 * @param j1 Premier joueur
+	 * @param j2 Second joueur
+	 * @return Le numéro du joueur qui joue le premier
+	 */
+	public static int tirerPremierJoueur(Joueur j1, Joueur j2) {
+		int nb = tirerHasard(1, 2);
+		if (nb == 1) {
+			Ecran.afficher("Tirage au sort pour le commencement du jeu ...  C'est " + j1.nom + " qui va commencer ! ");
+		} else {
+			Ecran.afficher("Tirage au sort pour le commencement du jeu ...  C'est " + j2.nom + " qui va commencer ! ");
+		}
+		Ecran.sautDeLigne();
+		Ecran.sautDeLigne();
+		return(nb);
+	}
 
 	/******************************
 	 *            Main            *
@@ -534,60 +622,9 @@ public class Poker {
 
 		// initialisation des variables
 		demandeNom(joueur1, joueur2);
-		tourJeu = tirerHasard(1, 2);
 
-		// jeu
-		if(tourJeu == 1) {
-			Ecran.afficherln("Le joueur ", joueur1.nom, " joue en premier.");
-		} else {
-			Ecran.afficherln("Le joueur ", joueur2.nom, " joue en premier.");
-		}
-		do {
-			// tours de jeu
-			if(tourJeu == 1) {
-				if(compteur == 1 || compteur == 2) {
-					// lancement des dés et affichage
-					joueur1.gblt = lancerDes(INF, SUP); // nouveau lancer
-					afficherLancer(joueur1); // affichage du lancer
-					Ecran.sautDeLigne();
-				} else {
-					// affichage du joueur
-					Ecran.afficherln("Au tour de ", joueur1.nom, "...");
-					// relance
-					choixRelances(relance, joueur1.gblt, SUP, INF);
-					afficherLancer(joueur1);
-					Ecran.sautDeLigne();
-				}
-			} else {
-				if(compteur == 1 || compteur == 2) {
-					// lancement des dés et affichage
-					joueur2.gblt = lancerDes(INF, SUP); // nouveau lancer
-					afficherLancer(joueur2); // affichage du lancer
-					Ecran.sautDeLigne();
-				} else {
-					// affichage du joueur
-					Ecran.afficherln("Au tour de ", joueur2.nom, "...");
-					// relance
-					choixRelances(relance, joueur2.gblt, SUP, INF);
-					afficherLancer(joueur2);
-					Ecran.sautDeLigne();
-				}
-			}
-
-			// calcul et affichage du score
-			calculerScore(joueur1, joueur2);
-			afficherScore(joueur1, joueur2);
-
-			// changement de joueur
-			if(tourJeu == 1) {
-				tourJeu = 2;
-			} else {
-				tourJeu = 1;
-			}
-
-			// compteur de tours
-			compteur++;
-		} while(1 == 1);
+		// tours de jeu
+		tourJeu(joueur1, joueur2, INF, SUP, relance);
 	}
 
 }
