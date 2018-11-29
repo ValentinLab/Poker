@@ -507,9 +507,11 @@ public class Poker {
 	 * @param joueur2 Second joueur
 	 */
 	public static void calculerScore(Joueur joueur1, Joueur joueur2) {
-		// calcul du score
+		// initialisation des variables
 		int combinaisonJ1 = calculerCombinaison(joueur1.gblt);
 		int combinaisonJ2 = calculerCombinaison(joueur2.gblt);
+
+		// calcul du score et affichage
 		if(combinaisonJ1 > combinaisonJ2) {
 			joueur1.score++;
 			Ecran.afficherln(joueur1.nom, " gagne le coup !");
@@ -583,7 +585,7 @@ public class Poker {
 			}
 
 			// calcul et affichage du score
-			if(compteur%2 == 0) {
+			if(compteur%8 == 0) {
 				Ecran.sautDeLigne();
 				calculerScore(j1, j2);
 			}
