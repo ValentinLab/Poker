@@ -1,5 +1,5 @@
 /**
- * Mini projet: Jeu de Poker
+ * Mini projet: Jeu de Poker d'As
  *
  * Valentin Perignon et Fabian Devel
  * Groupe C1 CMI Informatique
@@ -58,7 +58,6 @@ public class Poker {
 	 */
 	public static int calculerCombinaison(Gobelet gblt) {
 		int combinaisonNb, combinaisonIdentique, combinaisonDouble, combinaisonSuite;
-		String combinaison = "";
 		Gobelet aTrier = clonerGobelet(gblt);
 
 		// tri du gobelet
@@ -321,11 +320,11 @@ public class Poker {
 	 * @param INF Borne inférieure pour les valeurs des dés
 	 */
 	public static void choixRelances (Relance relance, Gobelet gobelet, int SUP, int INF) {
-		Ecran.afficher("Voulez-vous relancer des dés ? ('o'/'n') ");
+		Ecran.afficher("Voulez-vous relancer des dés ? (o/n) ");
 		relance.reponse = Clavier.saisirChar();
 
-		while (relance.reponse != 'o' && relance.reponse != 'n'){
-			Ecran.afficher("Vous n'avez pas saisi 'oui' ou 'non', veuillez recommencer la saisie ");
+		while (relance.reponse != 'o' && relance.reponse != 'n' && relance.reponse != 'O' && relance.reponse != 'N'){
+			Ecran.afficher("Vous n'avez pas saisi 'oui' ou 'non', veuillez recommencer la saisie (o/n) ");
 			relance.reponse = Clavier.saisirChar();
 		}
 
@@ -343,27 +342,27 @@ public class Poker {
 			switch (relance.nbDes) {
 				case 1 : {
 					int compteur = 1;
-					relanceMultiple (relance, gobelet, SUP, INF, compteur);
+					relanceMultiple(relance, gobelet, SUP, INF, compteur);
 					break;
 				}
 				case 2 : {
 					int compteur = 2;
-					relanceMultiple (relance, gobelet, SUP, INF, compteur);
+					relanceMultiple(relance, gobelet, SUP, INF, compteur);
 					break;
 				}
 				case 3 : {
 					int compteur = 3;
-					relanceMultiple (relance, gobelet, SUP, INF, compteur);
+					relanceMultiple(relance, gobelet, SUP, INF, compteur);
 					break;
 				}
 				case 4 : {
 					int compteur = 4;
-					relanceMultiple (relance, gobelet, SUP, INF, compteur);
+					relanceMultiple(relance, gobelet, SUP, INF, compteur);
 					break;
 				}
 				case 5 : {
 					int compteur = 5;
-					relanceMultiple (relance, gobelet, SUP, INF, compteur);
+					relanceMultiple(relance, gobelet, SUP, INF, compteur);
 					break;
 				}
 			}
@@ -508,26 +507,23 @@ public class Poker {
 	 * @param joueur2 Second joueur
 	 */
 	public static void calculerScore(Joueur joueur1, Joueur joueur2) {
+		// calcul du score
 		int combinaisonJ1 = calculerCombinaison(joueur1.gblt);
 		int combinaisonJ2 = calculerCombinaison(joueur2.gblt);
 		if(combinaisonJ1 > combinaisonJ2) {
 			joueur1.score++;
+			Ecran.afficherln(joueur1.nom, " gagne le coup !");
 		} else {
 			if(combinaisonJ1 < combinaisonJ2) {
 				joueur2.score++;
+				Ecran.afficherln(joueur2.nom, " gagne le coup !");
+			} else {
+				Ecran.afficherln("Match nul !");
 			}
 		}
 
-	}
-
-	/**
-	 * Afficher le score des joueurs
-	 *
-	 * @param joueur1 Premier joueur
-	 * @param joueur2 Second joueur
-	 */
-	public static void afficherScore(Joueur joueur1, Joueur joueur2) {
-		Ecran.afficherln("Score:\n", joueur1.nom, " : ", joueur1.score, "\n", joueur2.nom, " : ", joueur2.score);
+		// affichage du score
+		Ecran.afficherln("Score:\n - ", joueur1.nom, " : ", joueur1.score, "\n - ", joueur2.nom, " : ", joueur2.score);
 	}
 
 	/**
@@ -545,11 +541,16 @@ public class Poker {
 		int tourJeu = tirerPremierJoueur(j1, j2);
 
 		// boucle de jeu
+		// TODO gérer plusieurs coups
 		do {
 			if(tourJeu == 1) {
-				if(compteur == 1 || compteur == 2) {
+				if(compteur%8 == 1 || compteur%8 == 2) {
 					// lancement des dés et affichage
 					j1.gblt = lancerDes(inf, sup); // nouveau lancer
+					if(compteur > 1) {
+						Ecran.sautDeLigne();
+					}
+					Ecran.afficher("Nouveau coup: ");
 					afficherLancer(j1); // affichage du lancer
 					Ecran.sautDeLigne();
 				} else {
@@ -561,9 +562,13 @@ public class Poker {
 					Ecran.sautDeLigne();
 				}
 			} else {
-				if(compteur == 1 || compteur == 2) {
+				if(compteur%8 == 1 || compteur%8 == 2) {
 					// lancement des dés et affichage
 					j2.gblt = lancerDes(inf, sup); // nouveau lancer
+					if(compteur > 1) {
+						Ecran.sautDeLigne();
+					}
+					Ecran.afficher("Nouveau coup: ");
 					afficherLancer(j2); // affichage du lancer
 					Ecran.sautDeLigne();
 				} else {
@@ -571,9 +576,16 @@ public class Poker {
 					Ecran.afficherln("\nAu tour de ", j2.nom, "...");
 					// relance
 					choixRelances(relance, j2.gblt, sup, inf);
+					Ecran.sautDeLigne();
 					afficherLancer(j2);
 					Ecran.sautDeLigne();
 				}
+			}
+
+			// calcul et affichage du score
+			if(compteur%2 == 0) {
+				Ecran.sautDeLigne();
+				calculerScore(j1, j2);
 			}
 
 			// changement de joueur
@@ -618,7 +630,9 @@ public class Poker {
 		Relance relance = new Relance();
 		final int INF = 1;
 		final int SUP = 6;
-		int tourJeu, compteur = 1;
+
+		// titre du jeu
+		Ecran.afficherln("POKER D'AS\n");
 
 		// initialisation des variables
 		demandeNom(joueur1, joueur2);
