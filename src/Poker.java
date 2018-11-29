@@ -278,7 +278,7 @@ public class Poker {
 	 */
 	public static void afficherLancer(Joueur joueur) {
 		// affichage de la valeur des dés
-		Ecran.afficher(joueur.nom, " - ( ", joueur.gblt.de1, " ", joueur.gblt.de2, " ", joueur.gblt.de3, " ", joueur.gblt.de4, " ", joueur.gblt.de5, " )");
+		Ecran.afficher(joueur.nom, " : ( ", joueur.gblt.de1, " ", joueur.gblt.de2, " ", joueur.gblt.de3, " ", joueur.gblt.de4, " ", joueur.gblt.de5, " )");
 		// affichage de la combinaison
 		Ecran.afficher(" - ", convertirNom(calculerCombinaison(joueur.gblt)));
 	}
@@ -547,10 +547,10 @@ public class Poker {
 				if(compteur%8 == 1 || compteur%8 == 2) {
 					// lancement des dés et affichage
 					j1.gblt = lancerDes(inf, sup); // nouveau lancer
-					if(compteur > 1) {
+					if(compteur%2 != 0) { // afficher qu'il s'agit d'un nouveau coup
 						Ecran.sautDeLigne();
+						Ecran.afficherln("Nouveau coup: ");
 					}
-					Ecran.afficher("Nouveau coup: ");
 					afficherLancer(j1); // affichage du lancer
 					Ecran.sautDeLigne();
 				} else {
@@ -564,11 +564,11 @@ public class Poker {
 			} else {
 				if(compteur%8 == 1 || compteur%8 == 2) {
 					// lancement des dés et affichage
-					j2.gblt = lancerDes(inf, sup); // nouveau lancer
-					if(compteur > 1) {
+					j2.gblt = lancerDes(inf, sup); // afficher qu'il s'agit d'un nouveau coup
+					if(compteur%2 != 0) {
 						Ecran.sautDeLigne();
+						Ecran.afficherln("Nouveau coup: ");
 					}
-					Ecran.afficher("Nouveau coup: ");
 					afficherLancer(j2); // affichage du lancer
 					Ecran.sautDeLigne();
 				} else {
@@ -614,7 +614,6 @@ public class Poker {
 		} else {
 			Ecran.afficher("Tirage au sort pour le commencement du jeu ...  C'est " + j2.nom + " qui va commencer ! ");
 		}
-		Ecran.sautDeLigne();
 		Ecran.sautDeLigne();
 		return(nb);
 	}
