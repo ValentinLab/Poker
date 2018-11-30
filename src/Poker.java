@@ -512,6 +512,7 @@ public class Poker {
 		int combinaisonJ2 = calculerCombinaison(joueur2.gblt);
 
 		// calcul du score et affichage
+		Ecran.afficherln("\n##############################");
 		if(combinaisonJ1 > combinaisonJ2) {
 			joueur1.score++;
 			Ecran.afficherln(joueur1.nom, " gagne le coup !");
@@ -526,6 +527,8 @@ public class Poker {
 
 		// affichage du score
 		Ecran.afficherln("Score:\n - ", joueur1.nom, " : ", joueur1.score, "\n - ", joueur2.nom, " : ", joueur2.score);
+		Ecran.afficherln("##############################\n");
+		Ecran.sautDeLigne();
 	}
 
 	/**
@@ -543,10 +546,14 @@ public class Poker {
 		int tourJeu = tirerPremierJoueur(j1, j2);
 
 		// boucle de jeu
-		// TODO gérer plusieurs coups
 		do {
 			if(tourJeu == 1) {
 				if(compteur%8 == 1 || compteur%8 == 2) {
+					// affichage du premier joueur
+					if(compteur%8 == 1) {
+						Ecran.afficherln("C'est " + j1.nom + " qui va commencer !");
+					}
+
 					// lancement des dés et affichage
 					j1.gblt = lancerDes(inf, sup); // nouveau lancer
 					if(compteur%2 != 0) { // afficher qu'il s'agit d'un nouveau coup
@@ -565,6 +572,11 @@ public class Poker {
 				}
 			} else {
 				if(compteur%8 == 1 || compteur%8 == 2) {
+					// affichage du premier joueur
+					if(compteur%8 == 1) {
+						Ecran.afficherln("C'est " + j2.nom + " qui va commencer !");
+					}
+
 					// lancement des dés et affichage
 					j2.gblt = lancerDes(inf, sup); // afficher qu'il s'agit d'un nouveau coup
 					if(compteur%2 != 0) {
@@ -584,10 +596,18 @@ public class Poker {
 				}
 			}
 
-			// calcul et affichage du score
+			// fin de coup
 			if(compteur%8 == 0) {
+				// calcul et affichage du score
 				Ecran.sautDeLigne();
 				calculerScore(j1, j2);
+
+				// changement du premier joueur
+				if(tourJeu == 1) {
+					tourJeu = 2;
+				} else {
+					tourJeu = 1;
+				}
 			}
 
 			// changement de joueur
@@ -612,9 +632,9 @@ public class Poker {
 	public static int tirerPremierJoueur(Joueur j1, Joueur j2) {
 		int nb = tirerHasard(1, 2);
 		if (nb == 1) {
-			Ecran.afficher("Tirage au sort pour le commencement du jeu ...  C'est " + j1.nom + " qui va commencer ! ");
+			Ecran.afficher("Tirage au sort pour le commencement du jeu ... ");
 		} else {
-			Ecran.afficher("Tirage au sort pour le commencement du jeu ...  C'est " + j2.nom + " qui va commencer ! ");
+			Ecran.afficher("Tirage au sort pour le commencement du jeu ...");
 		}
 		Ecran.sautDeLigne();
 		return(nb);
@@ -643,3 +663,5 @@ public class Poker {
 	}
 
 }
+
+// TODO vérifier la saisie pour ne pas relancer plusieurs fois, le même dés
