@@ -661,7 +661,7 @@ public class Poker {
 		*            Main            *
 	 ******************************/
 
-	public static void main(String ars[]) {
+	public static void main(String args[]) {
 		// déclaration des données
 		Joueur joueur1 = new Joueur();
 		Joueur joueur2 = new Joueur();
@@ -681,4 +681,4 @@ public class Poker {
 
 }
 
-// TODO verifier la saisie pour ne pas relancer plusieurs fois, le meme de
+// TODO verifier la saisie pour ne pas relancer plusieurs fois, le meme dé
