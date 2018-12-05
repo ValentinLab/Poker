@@ -552,13 +552,14 @@ public class Poker {
 		// déclaration des variables
 		int compteur = 1;
 		int tourJeu = tirerPremierJoueur(j1, j2);
+		boolean continuerJeu = true;
 
 		// boucle de jeu
 		do {
 			if(tourJeu == 1) {
-				if(compteur%8 == 1 || compteur%8 == 2) {
+				if(compteur%6 == 1 || compteur%6 == 2) {
 					// affichage du premier joueur
-					if(compteur%8 == 1) {
+					if(compteur%6 == 1) {
 						Ecran.afficherln("C'est " + j1.nom + " qui va commencer !");
 					}
 
@@ -579,9 +580,9 @@ public class Poker {
 					Ecran.sautDeLigne();
 				}
 			} else {
-				if(compteur%8 == 1 || compteur%8 == 2) {
+				if(compteur%6 == 1 || compteur%6 == 2) {
 					// affichage du premier joueur
-					if(compteur%8 == 1) {
+					if(compteur%6 == 1) {
 						Ecran.afficherln("C'est " + j2.nom + " qui va commencer !");
 					}
 
@@ -605,7 +606,7 @@ public class Poker {
 			}
 
 			// fin de coup
-			if(compteur%8 == 0) {
+			if(compteur%6 == 0) {
 				// calcul et affichage du score
 				Ecran.sautDeLigne();
 				calculerScore(j1, j2);
@@ -618,6 +619,11 @@ public class Poker {
 				}
 			}
 
+			// proposition de fin de jeu
+			if(compteur%6 == 0) {
+				continuerJeu = choisirContinuer();
+			}
+
 			// changement de joueur
 			if(tourJeu == 1) {
 				tourJeu = 2;
@@ -627,7 +633,30 @@ public class Poker {
 
 			// compteur de tours
 			compteur++;
-		} while(1 == 1);
+		} while(continuerJeu);
+	}
+
+	public static boolean choisirContinuer() {
+		boolean continuer = true;
+		char choix;
+
+		Ecran.afficher("Voulez-vous jouer un nouveau coup ? (o/n) ");
+		choix = Clavier.saisirChar();
+		while(choix != 'o' && choix != 'O' && choix != 'n' && choix != 'N') {
+			Ecran.afficher("Voulez-vous jouer un nouveau coup ? (o/n) ");
+			choix = Clavier.saisirChar();
+		}
+
+		switch (choix) {
+			case 'o':
+				continuer = false;
+				break;
+			case 'n':
+				continuer = false;
+				break;
+		}
+
+		return continuer;
 	}
 
 	/**
@@ -673,3 +702,4 @@ public class Poker {
 }
 
 // TODO verifier la saisie pour ne pas relancer plusieurs fois, le meme des
+// TODO proposer de terminer le jeu
