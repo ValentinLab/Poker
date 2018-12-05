@@ -8,12 +8,12 @@
 public class Poker {
 
 	/******************************
-	 *     Type agrÃ©gÃ© Gobelet    *
+	 *     Type agrégé Gobelet    *
 	 ******************************/
 
 	/**
-	 * Type agrÃ©gÃ© symbolisant un gobelet contenant 5 dÃ©s. <br>
-	 * Le type agrÃ©gÃ© contient 5 entier symbolisant la valeur des 5 dÃ©s
+	 * Type agrégé symbolisant un gobelet contenant 5 dés. <br>
+	 * Le type agrégé contient 5 entier symbolisant la valeur des 5 dés
 	 */
 	public static class Gobelet {
 		int de1;
@@ -24,11 +24,11 @@ public class Poker {
 	}
 
 	/**
-	 * Lancer les 5 dÃ©s
+	 * Lancer les 5 dés
 	 *
-	 * @param inf Borne infÃ©rieure (valeur minimum du dÃ©)
-	 * @param sup Borne supÃ©rieure (valeur maximum du dÃ©)
-	 * @return Le gobelet avec les 5 dÃ©s lancÃ©s
+	 * @param inf Borne inférieure (valeur minimum du dé)
+	 * @param sup Borne supérieure (valeur maximum du dé)
+	 * @return Le gobelet avec les 5 dés lancés
 	 */
 	public static Gobelet lancerDes(int inf, int sup) {
 		Gobelet gblt = new Gobelet();
@@ -43,18 +43,18 @@ public class Poker {
 	}
 
 	/**
-	 * Calculer la combinaison la plus forte rÃ©alisÃ©e par les dÃ©s
+	 * Calculer la combinaison la plus forte réalisée par les dés
 	 * Combinaison 1: Paire
 	 * Combinaison 2: Double paire
 	 * Combinaison 3: Brelan
 	 * Combinaison 4: Full
-	 * Combinaison 5: CarrÃ©
+	 * Combinaison 5: Carré
 	 * Combinaison 6: Petite suite
 	 * Combinaison 7: Suite
 	 * Combinaison 8: Poker
 	 *
-	 * @param gblt Gobelet contenant les 5 dÃ©s
-	 * @return La plus forte combinaison rÃ©alisÃ©e (l'entier corrÃ©spondant)
+	 * @param gblt Gobelet contenant les 5 dés
+	 * @return La plus forte combinaison réalisée (l'entier corréspondant)
 	 */
 	public static int calculerCombinaison(Gobelet gblt) {
 		int combinaisonNb, combinaisonIdentique, combinaisonDouble, combinaisonSuite;
@@ -65,7 +65,7 @@ public class Poker {
 		// tri du gobelet pour la suite
 		Gobelet gbltTriSuite = trierGobeletSuite(gbltTri);
 
-		// calcul d'une combinaison de type paire / brelan / carrÃ© / poker
+		// calcul d'une combinaison de type paire / brelan / carré / poker
 		combinaisonIdentique = calculerIdentique(gbltTri);
 
 		// calcul d'une combinaison de type double paire / full
@@ -97,7 +97,7 @@ public class Poker {
 				combinaison = "Petite Suite";
 				break;
 			case 5:
-				combinaison = "CarrÃ©";
+				combinaison = "Carré";
 				break;
 			case 4:
 				combinaison = "Full";
@@ -117,43 +117,43 @@ public class Poker {
 	}
 
 	/**
-	 * Calculer une combinaison de type pair / brelan / carrÃ© / poker
+	 * Calculer une combinaison de type pair / brelan / carré / poker
 	 *
-	 * @param gblt Gobelet contenant les dÃ©s (en ayant triÃ© le gobelet)
-	 * @return Le numÃ©ro correspondant Ã  une combinaison
+	 * @param gblt Gobelet contenant les dés (en ayant trié le gobelet)
+	 * @return Le numéro correspondant Ã  une combinaison
 	 */
 	public static int calculerIdentique(Gobelet gblt) {
 		int combinaison = 0;
 
-		// comparaison des dÃ©s entre eux
-		if(gblt.de1 == gblt.de2) { // comparaison de dÃ© 1 avec les 4 autres
+		// comparaison des dés entre eux
+		if(gblt.de1 == gblt.de2) { // comparaison de dé 1 avec les 4 autres
 			combinaison = 1; // paire
 			if(gblt.de1 == gblt.de3) {
 				combinaison = 3; // brelan
 				if(gblt.de1 == gblt.de4) {
-					combinaison = 5; // carrÃ©
+					combinaison = 5; // carré
 					if(gblt.de1 == gblt.de5) {
 						combinaison = 8; // poker
 					}
 				}
 			}
 		} else {
-			if(gblt.de2 == gblt.de3) { // comparaison de dÃ© 2 avec les 3 autres
+			if(gblt.de2 == gblt.de3) { // comparaison de dé 2 avec les 3 autres
 				combinaison = 1; // paire
 				if(gblt.de2 == gblt.de4) {
 					combinaison = 3; // brelan
 					if(gblt.de2 == gblt.de5) {
-						combinaison = 5; // carrÃ©
+						combinaison = 5; // carré
 					}
 				}
 			} else {
-				if(gblt.de3 == gblt.de4) { // comparaison du dÃ© 3 avec les 2 autres
+				if(gblt.de3 == gblt.de4) { // comparaison du dé 3 avec les 2 autres
 					combinaison = 1; // paire
 					if(gblt.de3 == gblt.de5) {
 						combinaison = 3; // brelan
 					}
 				} else {
-					if(gblt.de4 == gblt.de5) { // comparaison du dÃ© 4 avec le 5e
+					if(gblt.de4 == gblt.de5) { // comparaison du dé 4 avec le 5e
 						combinaison = 1; // paire
 					}
 				}
@@ -166,8 +166,8 @@ public class Poker {
 	/**
 	 * Calculer une combinaison de type double paire / full
 	 *
-	 * @param gblt Gobelet contenant les dÃ©s (en ayant triÃ© le gobelet)
-	 * @return Le numÃ©ro correspondant Ã  une combinaison
+	 * @param gblt Gobelet contenant les dés (en ayant trié le gobelet)
+	 * @return Le numéro correspondant Ã  une combinaison
 	 */
 	public static int calculerDouble(Gobelet gblt) {
 		int combinaison = 0;
@@ -186,8 +186,8 @@ public class Poker {
 	/**
 	 * Calculer une combinaison de type petite suite / suite
 	 *
-	 * @param gblt Gobelet contenant les dÃ©s (en ayant triÃ© le gobelet)
-	 * @return Le numÃ©ro correspondant  une combinaison
+	 * @param gblt Gobelet contenant les dés (en ayant trié le gobelet)
+	 * @return Le numéro correspondant  une combinaison
 	 */
 	public static int calculerSuite(Gobelet gblt) {
 		int combinaison = 0;
@@ -205,15 +205,15 @@ public class Poker {
 	}
 
 	/**
-	 * Trier les dÃ©s dans l'ordre croissant
+	 * Trier les dés dans l'ordre croissant
 	 *
-	 * @param gblt Gobelet contenant les dÃ©s
-	 * @return Le gobelet avec les dÃ©s triÃ©s
+	 * @param gblt Gobelet contenant les dés
+	 * @return Le gobelet avec les dés triés
 	 */
 	public static Gobelet trierGobelet(Gobelet gblt) {
 		Gobelet gbltTri = gblt;
 
-		// triage des dÃ©s
+		// triage des dés
 		int tmp;
 		while(!(gbltTri.de1 <= gbltTri.de2 && gbltTri.de2 <= gbltTri.de3 && gbltTri.de3 <= gbltTri.de4 && gbltTri.de4 <= gbltTri.de5)) {
 			if(gbltTri.de2 < gbltTri.de1) {
@@ -242,15 +242,15 @@ public class Poker {
 	}
 
 	/**
-	 * Trier les dÃ©s spÃ©cialement pour dÃ©tecter les suites
+	 * Trier les dés spécialement pour détecter les suites
 	 *
-	 * @param gblt Gobelet contenant les dÃ©s
-	 * @return Le gobelet avec les dÃ©s triÃ©s
+	 * @param gblt Gobelet contenant les dés
+	 * @return Le gobelet avec les dés triés
 	 */
 	public static Gobelet trierGobeletSuite(Gobelet gblt) {
 		Gobelet gbltTriS = clonerGobelet(gblt);
 
-		// triage des dÃ©s
+		// triage des dés
 		if(gbltTriS.de1 == gbltTriS.de2) {
 			gbltTriS.de2 = 9;
 		} else {
@@ -272,12 +272,12 @@ public class Poker {
 	}
 
 	/**
-	 * Afficher le lancer rÃ©alisÃ© et la plus forte combinaison
+	 * Afficher le lancer réalisé et la plus forte combinaison
 	 *
-	 * @param joueur Joueur qui rÃ©alise le lancer
+	 * @param joueur Joueur qui réalise le lancer
 	 */
 	public static void afficherLancer(Joueur joueur) {
-		// affichage de la valeur des dÃ©s
+		// affichage de la valeur des dés
 		Ecran.afficher(joueur.nom, " : ( ", joueur.gblt.de1, " ", joueur.gblt.de2, " ", joueur.gblt.de3, " ", joueur.gblt.de4, " ", joueur.gblt.de5, " )");
 		// affichage de la combinaison
 		Ecran.afficher(" - ", convertirNom(calculerCombinaison(joueur.gblt)));
@@ -286,8 +286,8 @@ public class Poker {
 	/**
 	 * Cloner un gobelet
 	 *
-	 * @param gblt Gobelet contenant les dÃ©s
-	 * @return Le nouveau gobelet triÃ©
+	 * @param gblt Gobelet contenant les dés
+	 * @return Le nouveau gobelet trié
 	 */
 	public static Gobelet clonerGobelet(Gobelet gblt) {
 		Gobelet nvGblt = new Gobelet();
@@ -302,12 +302,12 @@ public class Poker {
 	}
 
 	/******************************
-	 *     Type agrÃ©gÃ© Relance    *
+	 *     Type agrégé Relance    *
 	 ******************************/
 
 	/**
-	 * Type agrÃ©gÃ© symbolisant la relance des 5 dÃ©s. <br>
-	 * Le type agrÃ©gÃ© contient la rÃ©ponse de l'utilisateur, le nombre de dÃ©s Ã  relancer et le numÃ©ro du dÃ©s Ã  relancer
+	 * Type agrégé symbolisant la relance des 5 dés. <br>
+	 * Le type agrégé contient la réponse de l'utilisateur, le nombre de dés Ã  relancer et le numéro du dés Ã  relancer
 	 */
 	public static class Relance {
 		char reponse;
@@ -316,15 +316,15 @@ public class Poker {
 	}
 
 	/**
-	 * Choisir les dÃ©s Ã  relancer
+	 * Choisir les dés Ã  relancer
 	 *
-	 * @param relance Type agrÃ©gÃ© modÃ©lisant la relance de dÃ©s
-	 * @param gobelet Gobelet contenant les dÃ©s Ã  relancer
-	 * @param SUP Borne supÃ©rieur pour les valeurs des dÃ©s
-	 * @param INF Borne infÃ©rieure pour les valeurs des dÃ©s
+	 * @param relance Type agrégé modélisant la relance de dés
+	 * @param gobelet Gobelet contenant les dés Ã  relancer
+	 * @param SUP Borne supérieur pour les valeurs des dés
+	 * @param INF Borne inférieure pour les valeurs des dés
 	 */
 	public static void choixRelances (Relance relance, Gobelet gobelet, int SUP, int INF) {
-		Ecran.afficher("Voulez-vous relancer des dÃ©s ? (o/n) ");
+		Ecran.afficher("Voulez-vous relancer des dés ? (o/n) ");
 		relance.reponse = Clavier.saisirChar();
 
 		while (relance.reponse != 'o' && relance.reponse != 'n' && relance.reponse != 'O' && relance.reponse != 'N'){
@@ -333,15 +333,15 @@ public class Poker {
 		}
 
 		if(relance.reponse == 'o'){
-			Ecran.afficher("\nCombien de dÃ©s voulez-vous relancer ? ");
+			Ecran.afficher("\nCombien de dés voulez-vous relancer ? ");
 			relance.nbDes = Clavier.saisirInt();
 
 			while (relance.nbDes < 1 || relance.nbDes > 5){
-				Ecran.afficher("\nLe nombre de dÃ©s que vous avez saisi n'est pas valable car non compris entre 1 et 5. RÃ©essayez la saisie: ");
+				Ecran.afficher("\nLe nombre de dés que vous avez saisi n'est pas valable car non compris entre 1 et 5. Réessayez la saisie: ");
 				relance.nbDes = Clavier.saisirInt();
 			}
 
-			Ecran.afficher("\nQuel(s) dÃ©(s) voulez-vous relancer ? ");
+			Ecran.afficher("\nQuel(s) dé(s) voulez-vous relancer ? ");
 
 			switch (relance.nbDes) {
 				case 1 : {
@@ -375,34 +375,34 @@ public class Poker {
 	}
 
 	/**
-	 * VÃ©rification de la saisie pour la relance
+	 * Vérification de la saisie pour la relance
 	 *
-	 * @param relance Type agrÃ©gÃ© modÃ©lisant la relance de dÃ©s
+	 * @param relance Type agrégé modélisant la relance de dés
 	 */
 	public static void saisieNumDesCorrect (Relance relance) {
 		relance.numDes = Clavier.saisirInt();
 		while (relance.numDes < 1 || relance.numDes > 5){
 
-			Ecran.afficher("\nLe dÃ©s que vous avez saisi n'est pas valable car son numÃ©ro doit Ãªtre compris entre 1 et 5. RÃ©essayez la saisie: ");
+			Ecran.afficher("\nLe dés que vous avez saisi n'est pas valable car son numéro doit Ãªtre compris entre 1 et 5. Réessayez la saisie: ");
 			relance.numDes = Clavier.saisirInt();
 		}
 	}
 
 	/**
-	 * Relancer plusieurs dÃ©s
+	 * Relancer plusieurs dés
 	 *
-	 * @param relance Type agrÃ©gÃ© modÃ©lisant la relance de dÃ©s
-	 * @param gobelet Gobelet contenant les dÃ©s Ã  relancer
-	 * @param SUP Borne supÃ©rieur pour les valeurs des dÃ©s
-	 * @param INF Borne infÃ©rieure pour les valeurs des dÃ©s
-	 * @param compteur Nombre de dÃ©s Ã  relancer
+	 * @param relance Type agrégé modélisant la relance de dés
+	 * @param gobelet Gobelet contenant les dés Ã  relancer
+	 * @param SUP Borne supérieur pour les valeurs des dés
+	 * @param INF Borne inférieure pour les valeurs des dés
+	 * @param compteur Nombre de dés Ã  relancer
 	 */
 	public static void relanceMultiple (Relance relance, Gobelet gobelet, int SUP, int INF, int compteur) {
-		Ecran.afficher("\nEntrez le numÃ©ro du premier dÃ© que vous voulez relancez (de 1 Ã  5, de gauche Ã  droite): ");
+		Ecran.afficher("\nEntrez le numéro du premier dé que vous voulez relancez (de 1 Ã  5, de gauche Ã  droite): ");
 		saisieNumDesCorrect (relance);
 		actionRelance (relance, gobelet, SUP, INF);
 		for (int i=1; i<compteur; i++){
-			Ecran.afficher("\nEntrez le numÃ©ro du prochain dÃ© : ");
+			Ecran.afficher("\nEntrez le numéro du prochain dé : ");
 			saisieNumDesCorrect (relance);
 			actionRelance (relance, gobelet, SUP, INF);
 		}
@@ -410,15 +410,15 @@ public class Poker {
 	}
 
 	/**
-	 * Donner une nouvelle valeur aux dÃ©s
+	 * Donner une nouvelle valeur aux dés
 	 *
-	 * @param relance Type agrÃ©gÃ© modÃ©lisant la relance de dÃ©s
-	 * @param gobelet Gobelet contenant les dÃ©s Ã  relancer
-	 * @param SUP Borne supÃ©rieur pour les valeurs des dÃ©s
-	 * @param INF Borne infÃ©rieure pour les valeurs des dÃ©s
+	 * @param relance Type agrégé modélisant la relance de dés
+	 * @param gobelet Gobelet contenant les dés Ã  relancer
+	 * @param SUP Borne supérieur pour les valeurs des dés
+	 * @param INF Borne inférieure pour les valeurs des dés
 	 */
 	public static void actionRelance (Relance relance, Gobelet gobelet, int SUP, int INF) {
-		Ecran.afficher("Vous allez lancer le dÃ© "+ relance.numDes+" ");
+		Ecran.afficher("Vous allez lancer le dé "+ relance.numDes+" ");
 		switch(relance.numDes) {
 			case 1 : {
 				gobelet.de1 = tirerHasard(INF, SUP);
@@ -445,12 +445,12 @@ public class Poker {
 	}
 
 	/******************************
-	 *     Type agrÃ©gÃ© Joueur     *
+	 *     Type agrégé Joueur     *
 	 ******************************/
 
 	/**
-	 * Type agrÃ©gÃ© symbolisant un joueur. <br>
-	 * Le type agrÃ©gÃ© contient le nom du joueur, un gobelet et son score
+	 * Type agrégé symbolisant un joueur. <br>
+	 * Le type agrégé contient le nom du joueur, un gobelet et son score
 	 */
 	public static class Joueur {
 		String nom;
@@ -479,11 +479,11 @@ public class Poker {
 	 ******************************/
 
 	/**
-	 * Tirer un nombre au hasard dans un intervalle donnÃ©
+	 * Tirer un nombre au hasard dans un intervalle donné
 	 *
-	 * @param inf Borne infÃ©rieure
-	 * @param sup Borne supÃ©rieure
-	 * @return Le nombre tirÃ© au hasard
+	 * @param inf Borne inférieure
+	 * @param sup Borne supérieure
+	 * @return Le nombre tiré au hasard
 	 */
 	public static int tirerHasard(int inf, int sup) {
 		return inf + (int)(Math.random() * (sup - inf + 1));
@@ -540,29 +540,29 @@ public class Poker {
 	}
 
 	/**
-	 * RÃ©alisation des diffÃ©rents tours de jeu
+	 * Réalisation des différents tours de jeu
 	 *
 	 * @param j1 Premier joueur
 	 * @param j2 Second joueur
-	 * @param inf Borne infÃ©rieure
-	 * @param sup Borne supÃ©rieure
-	 * @param relance Type agrÃ©gÃ© symbolisant la relance des dÃ©s
+	 * @param inf Borne inférieure
+	 * @param sup Borne supérieure
+	 * @param relance Type agrégé symbolisant la relance des dés
 	 */
 	public static void tourJeu(Joueur j1, Joueur j2, int inf, int sup, Relance relance) {
-		// dÃ©claration des variables
+		// déclaration des variables
 		int compteur = 1;
 		int tourJeu = tirerPremierJoueur(j1, j2);
 
 		// boucle de jeu
 		do {
 			if(tourJeu == 1) {
-				if(compteur%8 == 1 || compteur%8 == 2) {
+				if(compteur%6 == 1 || compteur%6 == 2) {
 					// affichage du premier joueur
-					if(compteur%8 == 1) {
+					if(compteur%6 == 1) {
 						Ecran.afficherln("C'est " + j1.nom + " qui va commencer !");
 					}
 
-					// lancement des dÃ©s et affichage
+					// lancement des dés et affichage
 					j1.gblt = lancerDes(inf, sup); // nouveau lancer
 					if(compteur%2 != 0) { // afficher qu'il s'agit d'un nouveau coup
 						Ecran.sautDeLigne();
@@ -579,13 +579,13 @@ public class Poker {
 					Ecran.sautDeLigne();
 				}
 			} else {
-				if(compteur%8 == 1 || compteur%8 == 2) {
+				if(compteur%6 == 1 || compteur%6 == 2) {
 					// affichage du premier joueur
-					if(compteur%8 == 1) {
+					if(compteur%6 == 1) {
 						Ecran.afficherln("C'est " + j2.nom + " qui va commencer !");
 					}
 
-					// lancement des dÃ©s et affichage
+					// lancement des dés et affichage
 					j2.gblt = lancerDes(inf, sup); // afficher qu'il s'agit d'un nouveau coup
 					if(compteur%2 != 0) {
 						Ecran.sautDeLigne();
@@ -605,7 +605,7 @@ public class Poker {
 			}
 
 			// fin de coup
-			if(compteur%8 == 0) {
+			if(compteur%6 == 0) {
 				// calcul et affichage du score
 				Ecran.sautDeLigne();
 				calculerScore(j1, j2);
@@ -635,7 +635,7 @@ public class Poker {
 	 *
 	 * @param j1 Premier joueur
 	 * @param j2 Second joueur
-	 * @return Le numÃ©ro du joueur qui joue le premier
+	 * @return Le numéro du joueur qui joue le premier
 	 */
 	public static int tirerPremierJoueur(Joueur j1, Joueur j2) {
 		int nb = tirerHasard(1, 2);
@@ -653,7 +653,7 @@ public class Poker {
 	 ******************************/
 
 	public static void main(String ars[]) {
-		// dÃ©claration des donnÃ©es
+		// déclaration des données
 		Joueur joueur1 = new Joueur();
 		Joueur joueur2 = new Joueur();
 		Relance relance = new Relance();
