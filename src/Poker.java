@@ -680,5 +680,3 @@ public class Poker {
 	}
 
 }
-
-// TODO verifier la saisie pour ne pas relancer plusieurs fois, le meme dé
