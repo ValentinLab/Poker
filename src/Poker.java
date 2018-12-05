@@ -310,7 +310,7 @@ public class Poker {
 	 * Le type agrégé contient la réponse de l'utilisateur, le nombre de dés à  relancer et le numéro du dés à  relancer
 	 */
 	public static class Relance {
-		char reponse;
+		boolean reponse;
 		int nbDes;
 		int numDes;
 	}
@@ -324,15 +324,15 @@ public class Poker {
 	 * @param INF Borne inférieure pour les valeurs des dés
 	 */
 	public static void choixRelances (Relance relance, Gobelet gobelet, int SUP, int INF) {
-		Ecran.afficher("Voulez-vous relancer des dés ? (o/n) ");
-		relance.reponse = Clavier.saisirChar();
-
-		while (relance.reponse != 'o' && relance.reponse != 'n' && relance.reponse != 'O' && relance.reponse != 'N'){
-			Ecran.afficher("Vous n'avez pas saisi 'oui' ou 'non', veuillez recommencer la saisie (o/n) ");
-			relance.reponse = Clavier.saisirChar();
+		Ecran.afficher("Voulez-vous relancer des dés ? (taper o pour oui, une autre touche pour non)  ");
+		char reponse = Clavier.saisirChar();
+		if (reponse == 'o'){
+			relance.reponse = true;
+		} else {
+			relance.reponse = false;
 		}
 
-		if(relance.reponse == 'o'){
+		if(relance.reponse == true){
 			Ecran.afficher("\nCombien de dés voulez-vous relancer ? ");
 			relance.nbDes = Clavier.saisirInt();
 			while (relance.nbDes < 1 || relance.nbDes > 5){
@@ -348,34 +348,7 @@ public class Poker {
 				}
 			} else {
 				Ecran.afficher("\nQuel(s) dé(s) voulez-vous relancer ? ");
-
-				switch (relance.nbDes) {
-					case 1 : {
-						int compteur = 1;
-						relanceMultiple(relance, gobelet, SUP, INF, compteur);
-						break;
-					}
-					case 2 : {
-						int compteur = 2;
-						relanceMultiple(relance, gobelet, SUP, INF, compteur);
-						break;
-					}
-					case 3 : {
-						int compteur = 3;
-						relanceMultiple(relance, gobelet, SUP, INF, compteur);
-						break;
-					}
-					case 4 : {
-						int compteur = 4;
-						relanceMultiple(relance, gobelet, SUP, INF, compteur);
-						break;
-					}
-					case 5 : {
-						int compteur = 5;
-						relanceMultiple(relance, gobelet, SUP, INF, compteur);
-						break;
-					}
-				}
+				relanceMultiple(relance, gobelet, SUP, INF);
 			}
 		}
 	}
@@ -404,11 +377,11 @@ public class Poker {
 	 * @param INF Borne inférieure pour les valeurs des dés
 	 * @param compteur Nombre de dés à  relancer
 	 */
-	public static void relanceMultiple (Relance relance, Gobelet gobelet, int SUP, int INF, int compteur) {
+	public static void relanceMultiple (Relance relance, Gobelet gobelet, int SUP, int INF) {
 		Ecran.afficher("\nEntrez le numéro du premier dé que vous voulez relancez (de 1 à  5, de gauche à  droite): ");
 		saisieNumDesCorrect (relance);
 		actionRelance (relance, gobelet, SUP, INF);
-		for (int i=1; i<compteur; i++){
+		for (int i=1; i<relance.nbDes; i++){
 			Ecran.afficher("\nEntrez le numéro du prochain dé : ");
 			saisieNumDesCorrect (relance);
 			actionRelance (relance, gobelet, SUP, INF);
@@ -708,5 +681,4 @@ public class Poker {
 
 }
 
-// TODO verifier la saisie pour ne pas relancer plusieurs fois, le meme des
-// TODO proposer de terminer le jeu
+// TODO verifier la saisie pour ne pas relancer plusieurs fois, le meme de
