@@ -305,6 +305,10 @@ public class Poker {
 	 *     Type agrégé Relance    *
 	 ******************************/
 
+	/**
+	 * Type agrégé symbolisant la relance des 5 dés. <br>
+	 * Le type agrégé contient la réponse de l'utilisateur, le nombre de dés à relancer et le numéro du dés à relancer
+	 */
 	public static class Relance {
 		char reponse;
 		int nbDes;
@@ -444,6 +448,10 @@ public class Poker {
 	 *     Type agrégé Joueur     *
 	 ******************************/
 
+	/**
+	 * Type agrégé symbolisant un joueur. <br>
+	 * Le type agrégé contient le nom du joueur, un gobelet et son score
+	 */
 	public static class Joueur {
 		String nom;
 		Gobelet gblt = new Gobelet();
@@ -664,4 +672,4 @@ public class Poker {
 
 }
 
-// TODO vérifier la saisie pour ne pas relancer plusieurs fois, le même dés
+// TODO verifier la saisie pour ne pas relancer plusieurs fois, le meme des
