@@ -378,7 +378,6 @@ public class Poker {
 				}
 			}
 		}
-
 	}
 
 	/**
