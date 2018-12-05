@@ -120,7 +120,7 @@ public class Poker {
 	 * Calculer une combinaison de type pair / brelan / carré / poker
 	 *
 	 * @param gblt Gobelet contenant les dés (en ayant trié le gobelet)
-	 * @return Le numéro correspondant Ã  une combinaison
+	 * @return Le numéro correspondant à  une combinaison
 	 */
 	public static int calculerIdentique(Gobelet gblt) {
 		int combinaison = 0;
@@ -167,7 +167,7 @@ public class Poker {
 	 * Calculer une combinaison de type double paire / full
 	 *
 	 * @param gblt Gobelet contenant les dés (en ayant trié le gobelet)
-	 * @return Le numéro correspondant Ã  une combinaison
+	 * @return Le numéro correspondant à  une combinaison
 	 */
 	public static int calculerDouble(Gobelet gblt) {
 		int combinaison = 0;
@@ -307,7 +307,7 @@ public class Poker {
 
 	/**
 	 * Type agrégé symbolisant la relance des 5 dés. <br>
-	 * Le type agrégé contient la réponse de l'utilisateur, le nombre de dés Ã  relancer et le numéro du dés Ã  relancer
+	 * Le type agrégé contient la réponse de l'utilisateur, le nombre de dés à  relancer et le numéro du dés à  relancer
 	 */
 	public static class Relance {
 		char reponse;
@@ -316,10 +316,10 @@ public class Poker {
 	}
 
 	/**
-	 * Choisir les dés Ã  relancer
+	 * Choisir les dés à  relancer
 	 *
 	 * @param relance Type agrégé modélisant la relance de dés
-	 * @param gobelet Gobelet contenant les dés Ã  relancer
+	 * @param gobelet Gobelet contenant les dés à  relancer
 	 * @param SUP Borne supérieur pour les valeurs des dés
 	 * @param INF Borne inférieure pour les valeurs des dés
 	 */
@@ -335,39 +335,46 @@ public class Poker {
 		if(relance.reponse == 'o'){
 			Ecran.afficher("\nCombien de dés voulez-vous relancer ? ");
 			relance.nbDes = Clavier.saisirInt();
-
 			while (relance.nbDes < 1 || relance.nbDes > 5){
 				Ecran.afficher("\nLe nombre de dés que vous avez saisi n'est pas valable car non compris entre 1 et 5. Réessayez la saisie: ");
 				relance.nbDes = Clavier.saisirInt();
 			}
+			
+			if(relance.nbDes == 5) {
+				relance.numDes = 1;
+				for(int i = 0; i<5; i++){
+					actionRelance (relance, gobelet, SUP, INF);
+					relance.numDes = relance.numDes + 1;
+				}
+			} else {
+				Ecran.afficher("\nQuel(s) dé(s) voulez-vous relancer ? ");
 
-			Ecran.afficher("\nQuel(s) dé(s) voulez-vous relancer ? ");
-
-			switch (relance.nbDes) {
-				case 1 : {
-					int compteur = 1;
-					relanceMultiple(relance, gobelet, SUP, INF, compteur);
-					break;
-				}
-				case 2 : {
-					int compteur = 2;
-					relanceMultiple(relance, gobelet, SUP, INF, compteur);
-					break;
-				}
-				case 3 : {
-					int compteur = 3;
-					relanceMultiple(relance, gobelet, SUP, INF, compteur);
-					break;
-				}
-				case 4 : {
-					int compteur = 4;
-					relanceMultiple(relance, gobelet, SUP, INF, compteur);
-					break;
-				}
-				case 5 : {
-					int compteur = 5;
-					relanceMultiple(relance, gobelet, SUP, INF, compteur);
-					break;
+				switch (relance.nbDes) {
+					case 1 : {
+						int compteur = 1;
+						relanceMultiple(relance, gobelet, SUP, INF, compteur);
+						break;
+					}
+					case 2 : {
+						int compteur = 2;
+						relanceMultiple(relance, gobelet, SUP, INF, compteur);
+						break;
+					}
+					case 3 : {
+						int compteur = 3;
+						relanceMultiple(relance, gobelet, SUP, INF, compteur);
+						break;
+					}
+					case 4 : {
+						int compteur = 4;
+						relanceMultiple(relance, gobelet, SUP, INF, compteur);
+						break;
+					}
+					case 5 : {
+						int compteur = 5;
+						relanceMultiple(relance, gobelet, SUP, INF, compteur);
+						break;
+					}
 				}
 			}
 		}
@@ -383,22 +390,23 @@ public class Poker {
 		relance.numDes = Clavier.saisirInt();
 		while (relance.numDes < 1 || relance.numDes > 5){
 
-			Ecran.afficher("\nLe dés que vous avez saisi n'est pas valable car son numéro doit Ãªtre compris entre 1 et 5. Réessayez la saisie: ");
+			Ecran.afficher("\nLe dé que vous avez saisi n'est pas valable car son numéro doit être compris entre 1 et 5. Réessayez la saisie: ");
 			relance.numDes = Clavier.saisirInt();
 		}
 	}
+	
 
 	/**
 	 * Relancer plusieurs dés
 	 *
 	 * @param relance Type agrégé modélisant la relance de dés
-	 * @param gobelet Gobelet contenant les dés Ã  relancer
+	 * @param gobelet Gobelet contenant les dés à  relancer
 	 * @param SUP Borne supérieur pour les valeurs des dés
 	 * @param INF Borne inférieure pour les valeurs des dés
-	 * @param compteur Nombre de dés Ã  relancer
+	 * @param compteur Nombre de dés à  relancer
 	 */
 	public static void relanceMultiple (Relance relance, Gobelet gobelet, int SUP, int INF, int compteur) {
-		Ecran.afficher("\nEntrez le numéro du premier dé que vous voulez relancez (de 1 Ã  5, de gauche Ã  droite): ");
+		Ecran.afficher("\nEntrez le numéro du premier dé que vous voulez relancez (de 1 à  5, de gauche à  droite): ");
 		saisieNumDesCorrect (relance);
 		actionRelance (relance, gobelet, SUP, INF);
 		for (int i=1; i<compteur; i++){
@@ -413,12 +421,12 @@ public class Poker {
 	 * Donner une nouvelle valeur aux dés
 	 *
 	 * @param relance Type agrégé modélisant la relance de dés
-	 * @param gobelet Gobelet contenant les dés Ã  relancer
+	 * @param gobelet Gobelet contenant les dés à  relancer
 	 * @param SUP Borne supérieur pour les valeurs des dés
 	 * @param INF Borne inférieure pour les valeurs des dés
 	 */
 	public static void actionRelance (Relance relance, Gobelet gobelet, int SUP, int INF) {
-		Ecran.afficher("Vous allez lancer le dé "+ relance.numDes+" ");
+		Ecran.afficher("Vous lancez le dé "+ relance.numDes+"\n");
 		switch(relance.numDes) {
 			case 1 : {
 				gobelet.de1 = tirerHasard(INF, SUP);
@@ -493,7 +501,7 @@ public class Poker {
 	 * Obtenir l'entier maximum (comparaison entre deux entiers)
 	 *
 	 * @param a Premier nombre
-	 * @param b DeuxiÃ¨me nombre
+	 * @param b Deuxià¨me nombre
 	 * @return Le plus grand nombre des deux
 	 */
 	public static int obtenirMax(int a, int b) {
@@ -649,7 +657,7 @@ public class Poker {
 	}
 
 	/******************************
-	 *            Main            *
+		*            Main            *
 	 ******************************/
 
 	public static void main(String ars[]) {
