@@ -559,6 +559,7 @@ public class Poker {
 		// déclaration des variables
 		int compteur = 1;
 		int tourJeu = tirerPremierJoueur(j1, j2);
+		boolean continuerJeu = true;
 
 		// boucle de jeu
 		do {
@@ -625,6 +626,11 @@ public class Poker {
 				}
 			}
 
+			// proposition de fin de jeu
+			if(compteur%6 == 0) {
+				continuerJeu = choisirContinuer();
+			}
+
 			// changement de joueur
 			if(tourJeu == 1) {
 				tourJeu = 2;
@@ -634,7 +640,30 @@ public class Poker {
 
 			// compteur de tours
 			compteur++;
-		} while(1 == 1);
+		} while(continuerJeu);
+	}
+
+	public static boolean choisirContinuer() {
+		boolean continuer = true;
+		char choix;
+
+		Ecran.afficher("Voulez-vous jouer un nouveau coup ? (o/n) ");
+		choix = Clavier.saisirChar();
+		while(choix != 'o' && choix != 'O' && choix != 'n' && choix != 'N') {
+			Ecran.afficher("Voulez-vous jouer un nouveau coup ? (o/n) ");
+			choix = Clavier.saisirChar();
+		}
+
+		switch (choix) {
+			case 'o':
+				continuer = false;
+				break;
+			case 'n':
+				continuer = false;
+				break;
+		}
+
+		return continuer;
 	}
 
 	/**
@@ -680,3 +709,4 @@ public class Poker {
 }
 
 // TODO verifier la saisie pour ne pas relancer plusieurs fois, le meme des
+// TODO proposer de terminer le jeu
