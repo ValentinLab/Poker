@@ -641,8 +641,17 @@ public class Poker {
 			// compteur de tours
 			compteur++;
 		} while(continuerJeu);
+
+		// fin du jeu
+		Ecran.sautDeLigne();
+		afficherGagnant(j1, j2);
 	}
 
+	/**
+	 * Proposer à l'utilisateur de continuer ou non de jouer
+	 *
+	 * @return vrai si le joueur continue de jouer
+	 */
 	public static boolean choisirContinuer() {
 		boolean continuer = true;
 		char choix;
@@ -664,6 +673,21 @@ public class Poker {
 		}
 
 		return continuer;
+	}
+
+	/**
+	 * Afficher le gagnant de la partie
+	 */
+	public static void afficherGagnant(Joueur j1, Joueur j2) {
+		// affichage du gagnant
+		if(j1. score > j2.score) {
+			Ecran.afficherln("Bravo ", j1.nom, " gagne la partie !");
+		} else {
+			Ecran.afficherln("Bravo ", j2.nom, " gagne la partie !");
+		}
+
+		// affichage du score final
+		Ecran.afficherln(j1.nom, " : ", j1.score, " | ", j2.nom, " : ", j2.score);
 	}
 
 	/**
@@ -707,6 +731,3 @@ public class Poker {
 	}
 
 }
-
-// TODO verifier la saisie pour ne pas relancer plusieurs fois, le meme des
-// TODO modifier choix relance
