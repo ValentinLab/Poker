@@ -120,7 +120,7 @@ public class Poker {
 	 * Calculer une combinaison de type pair / brelan / carré / poker
 	 *
 	 * @param gblt Gobelet contenant les dés (en ayant trié le gobelet)
-	 * @return Le numéro correspondant é une combinaison
+	 * @return Le numéro correspondant à une combinaison
 	 */
 	public static int calculerIdentique(Gobelet gblt) {
 		int combinaison = 0;
@@ -167,7 +167,7 @@ public class Poker {
 	 * Calculer une combinaison de type double paire / full
 	 *
 	 * @param gblt Gobelet contenant les dés (en ayant trié le gobelet)
-	 * @return Le numéro correspondant é une combinaison
+	 * @return Le numéro correspondant à une combinaison
 	 */
 	public static int calculerDouble(Gobelet gblt) {
 		int combinaison = 0;
@@ -307,7 +307,7 @@ public class Poker {
 
 	/**
 	 * Type agrégé symbolisant la relance des 5 dés. <br>
-	 * Le type agrégé contient la réponse de l'utilisateur, le nombre de dés é relancer et le numéro du dés é relancer
+	 * Le type agrégé contient la réponse de l'utilisateur, le nombre de dés à relancer et le numéro du dés à relancer
 	 */
 	public static class Relance {
 		boolean reponse;
@@ -316,7 +316,7 @@ public class Poker {
 	}
 
 	/**
-	 * Choisir les dés é relancer
+	 * Choisir les dés à relancer
 	 *
 	 * @param relance Type agrégé modélisant la relance de dés
 	 * @param gobelet Gobelet contenant les dés é relancer
@@ -324,7 +324,7 @@ public class Poker {
 	 * @param INF Borne inférieure pour les valeurs des dés
 	 */
 	public static void choixRelances (Relance relance, Gobelet gobelet, int SUP, int INF) {
-		Ecran.afficher("Voulez-vous relancer des d�s ? (taper o pour oui, une autre touche pour non)  ");
+		Ecran.afficher("Voulez-vous relancer des dés ? (taper o pour oui, une autre touche pour non) ");
 		char reponse = Clavier.saisirChar();
 		if (reponse == 'o'){
 			relance.reponse = true;
@@ -333,7 +333,7 @@ public class Poker {
 		}
 
 		if(relance.reponse == true){
-			Ecran.afficher("\nCombien de d�s voulez-vous relancer ? ");
+			Ecran.afficher("\nCombien de dés voulez-vous relancer ? ");
 			relance.nbDes = Clavier.saisirInt();
 			while (relance.nbDes < 1 || relance.nbDes > 5){
 				Ecran.afficher("\nLe nombre de dés que vous avez saisi n'est pas valable car non compris entre 1 et 5. Réessayez la saisie: ");
@@ -347,7 +347,7 @@ public class Poker {
 					relance.numDes = relance.numDes + 1;
 				}
 			} else {
-				Ecran.afficher("\nQuel(s) d�(s) voulez-vous relancer ? ");
+				Ecran.afficher("\nQuel(s) dé(s) voulez-vous relancer ? ");
 				relanceMultiple(relance, gobelet, SUP, INF);
 			}
 		}
@@ -362,7 +362,7 @@ public class Poker {
 		relance.numDes = Clavier.saisirInt();
 		while (relance.numDes < 1 || relance.numDes > 5){
 
-			Ecran.afficher("\nLe dé que vous avez saisi n'est pas valable car son numéro doit étre compris entre 1 et 5. Réessayez la saisie: ");
+			Ecran.afficher("\nLe dé que vous avez saisi n'est pas valable car son numéro doit être compris entre 1 et 5. Réessayez la saisie: ");
 			relance.numDes = Clavier.saisirInt();
 		}
 	}
@@ -372,17 +372,17 @@ public class Poker {
 	 * Relancer plusieurs dés
 	 *
 	 * @param relance Type agrégé modélisant la relance de dés
-	 * @param gobelet Gobelet contenant les dés é relancer
+	 * @param gobelet Gobelet contenant les dés à relancer
 	 * @param SUP Borne supérieur pour les valeurs des dés
 	 * @param INF Borne inférieure pour les valeurs des dés
-	 * @param compteur Nombre de dés é relancer
+	 * @param compteur Nombre de dés à relancer
 	 */
 	public static void relanceMultiple (Relance relance, Gobelet gobelet, int SUP, int INF) {
-		Ecran.afficher("\nEntrez le num�ro du premier d� que vous voulez relancez (de 1 � 5, de gauche � droite): ");
+		Ecran.afficher("\nEntrez le numéro du premier dé que vous voulez relancez (de 1 à 5, de gauche à droite): ");
 		saisieNumDesCorrect (relance);
 		actionRelance (relance, gobelet, SUP, INF);
 		for (int i=1; i<relance.nbDes; i++){
-			Ecran.afficher("\nEntrez le num�ro du prochain d� : ");
+			Ecran.afficher("\nEntrez le numéro du prochain dé : ");
 			saisieNumDesCorrect (relance);
 			actionRelance (relance, gobelet, SUP, INF);
 		}
@@ -393,7 +393,7 @@ public class Poker {
 	 * Donner une nouvelle valeur aux dés
 	 *
 	 * @param relance Type agrégé modélisant la relance de dés
-	 * @param gobelet Gobelet contenant les dés é relancer
+	 * @param gobelet Gobelet contenant les dés à relancer
 	 * @param SUP Borne supérieur pour les valeurs des dés
 	 * @param INF Borne inférieure pour les valeurs des dés
 	 */
@@ -450,7 +450,7 @@ public class Poker {
 		Ecran.afficher("Quel est le nom du joueur 2 ? ");
 		J2.nom = Clavier.saisirString();
 		Ecran.sautDeLigne();
-		Ecran.afficherln("Bonjour " + J1.nom + " et " + J2.nom + " et bienvenue au Poker d'As! ");
+		Ecran.afficherln("Bonjour ", J1.nom, " et ", J2.nom, " et bienvenue au Poker d'As! ");
 		Ecran.sautDeLigne();
 	}
 
@@ -473,7 +473,7 @@ public class Poker {
 	 * Obtenir l'entier maximum (comparaison entre deux entiers)
 	 *
 	 * @param a Premier nombre
-	 * @param b Deuxiéme nombre
+	 * @param b Deuxième nombre
 	 * @return Le plus grand nombre des deux
 	 */
 	public static int obtenirMax(int a, int b) {
@@ -540,7 +540,7 @@ public class Poker {
 				if(compteur%6 == 1 || compteur%6 == 2) {
 					// affichage du premier joueur
 					if(compteur%6 == 1) {
-						Ecran.afficherln("C'est " + j1.nom + " qui va commencer !");
+						Ecran.afficherln("C'est ", j1.nom, " qui va commencer !");
 					}
 
 					// lancement des dés et affichage
@@ -563,7 +563,7 @@ public class Poker {
 				if(compteur%6 == 1 || compteur%6 == 2) {
 					// affichage du premier joueur
 					if(compteur%6 == 1) {
-						Ecran.afficherln("C'est " + j2.nom + " qui va commencer !");
+						Ecran.afficherln("C'est ", j2.nom, " qui va commencer !");
 					}
 
 					// lancement des dés et affichage
