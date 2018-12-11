@@ -7,19 +7,24 @@
 
 public class Poker {
 
-	/******************************
-	 *     Type agrégé Gobelet    *
-	 ******************************/
+	// ******************************
+	//  Type agrégé Gobelet
+	// ******************************
 
 	/**
 	 * Type agrégé symbolisant un gobelet contenant 5 dés. <br>
 	 * Le type agrégé contient 5 entier symbolisant la valeur des 5 dés
 	 */
 	public static class Gobelet {
+		/** Premier dé */
 		int de1;
+		/** Deuxième dé */
 		int de2;
+		/** Troisième dé */
 		int de3;
+		/** Quatrième dé */
 		int de4;
+		/** Cinquième dé */
 		int de5;
 	}
 
@@ -301,17 +306,20 @@ public class Poker {
 		return nvGblt;
 	}
 
-	/******************************
-	 *     Type agrégé Relance    *
-	 ******************************/
+	// ******************************
+	//  Type agrégé Relance
+	// ******************************
 
 	/**
 	 * Type agrégé symbolisant la relance des 5 dés. <br>
 	 * Le type agrégé contient la réponse de l'utilisateur, le nombre de dés à relancer et le numéro du dés à relancer
 	 */
 	public static class Relance {
+		/** Réponse de l'utilisateur */
 		boolean reponse;
+		/** Nombre de dés à relancer */
 		int nbDes;
+		/** Numéro du dé à relancer */
 		int numDes;
 	}
 
@@ -424,17 +432,20 @@ public class Poker {
 
 	}
 
-	/******************************
-	 *     Type agrégé Joueur     *
-	 ******************************/
+	// ******************************
+	//  Type agrégé Joueur
+	// ******************************
 
 	/**
 	 * Type agrégé symbolisant un joueur. <br>
 	 * Le type agrégé contient le nom du joueur, un gobelet et son score
 	 */
 	public static class Joueur {
+		/** Nom du joueur */
 		String nom;
+		/** Gobelet du joueur */
 		Gobelet gblt = new Gobelet();
+		/** Score du joueur */
 		int score = 0;
 	}
 
@@ -454,9 +465,9 @@ public class Poker {
 		Ecran.sautDeLigne();
 	}
 
-	/******************************
-	 *     Fonctions & Actions    *
-	 ******************************/
+	// ******************************
+	//  Fonctions & Actions
+	// ******************************
 
 	/**
 	 * Tirer un nombre au hasard dans un intervalle donné
@@ -681,9 +692,9 @@ public class Poker {
 		return(nb);
 	}
 
-	/******************************
-	 *            Main            *
-	 ******************************/
+	// ******************************
+	//  Main
+	// ******************************
 
 	public static void main(String args[]) {
 		// déclaration des données
